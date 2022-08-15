@@ -2,6 +2,7 @@
 {% load static %}
 {% block styles %}
 {% endblock %}
+{% load humanize %}
 {%block title %} <title>LC</title> {%endblock%}
 {% block content %}
 {% include 'usuarios/alerts.html' %}
@@ -57,7 +58,7 @@
                                 <tbody>
                                     {% for cliente in clientes %}
                                     <tr>
-                                        <td class="cell">{{cliente.Idcliente}}</td>
+                                        <td class="cell">{{cliente.Idcliente|intcomma}}</td>
                                         <td class="cell">{{cliente.Nombrecompleto}}</td>
                                         <td class="cell">{{cliente.Direccion}}</td>
                                         <td class="cell"><span>{{cliente.Telefono}}</span><span class="note">2:16 PM</span></td>
