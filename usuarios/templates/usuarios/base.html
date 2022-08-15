@@ -10,15 +10,15 @@
     <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
     <link rel="shortcut icon" href="favicon.ico"> 
-    
     <!-- FontAwesome JS-->
     <script defer src="{% static 'assets/plugins/fontawesome/js/all.min.js' %}"></script>
-  
+ 
     <!-- App CSS -->  
     <link id="theme-style" rel="stylesheet" href="{% static 'assets/css/portal.css' %}">
     {% block styles %}
     {% endblock %}
     {%block title%}
+
     {%endblock%}
     {% load humanize %}
 </head> 
@@ -195,7 +195,8 @@
     <script src="{% static 'assets/js/index-charts.js' %}"></script> 
     <!-- Page Specific JS -->
     <script src="{% static 'assets/js/app.js' %}"></script> 
- {% block scripts %}
+{% block scripts %}
+
 {% endblock %}
 </body>
 </html> 

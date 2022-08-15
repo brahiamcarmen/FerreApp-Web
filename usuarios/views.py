@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
 from django.contrib import auth
-from Ferre.models import Usuario
+from Ferre.models import Usuario, Clientes
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -40,8 +40,9 @@ class ListaClientes(LoginRequiredMixin, View):
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
+            clientes = Clientes.objects.all()
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp},
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'clientes':clientes}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
