@@ -104,7 +104,7 @@
                 </div><!--//row-->
             </div><!--//app-card-header-->
             <div class="app-card-body px-4">
-                <div class="intro">Pellentesque varius, elit vel volutpat sollicitudin, lacus quam efficitur augue</div>
+                <div class="intro">Aplicaciones disponibles en el sistema</div>
             </div><!--//app-card-body-->
             <div class="app-card-footer p-4 mt-auto">
                 <a class="btn app-btn-secondary" href="{% url 'usuarios:agregarcliente' %}">Crear cliente</a>
@@ -118,23 +118,23 @@
                 <div class="row align-items-center gx-3">
                     <div class="col-auto">
                         <div class="app-icon-holder">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tools" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M0 1l1-1 3.081 2.2a1 1 0 0 1 .419.815v.07a1 1 0 0 0 .293.708L10.5 9.5l.914-.305a1 1 0 0 1 1.023.242l3.356 3.356a1 1 0 0 1 0 1.414l-1.586 1.586a1 1 0 0 1-1.414 0l-3.356-3.356a1 1 0 0 1-.242-1.023L9.5 10.5 3.793 4.793a1 1 0 0 0-.707-.293h-.071a1 1 0 0 1-.814-.419L0 1zm11.354 9.646a.5.5 0 0 0-.708.708l3 3a.5.5 0 0 0 .708-.708l-3-3z"/>
-                                <path fill-rule="evenodd" d="M15.898 2.223a3.003 3.003 0 0 1-3.679 3.674L5.878 12.15a3 3 0 1 1-2.027-2.027l6.252-6.341A3 3 0 0 1 13.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+                              <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
                             </svg>
                         </div><!--//icon-holder-->         
                     </div><!--//col-->
                     <div class="col-auto">
-                        <h4 class="app-card-title">Soporte</h4>
+                        <h4 class="app-card-title">Bodega</h4>
                     </div><!--//col-->
                 </div><!--//row-->
             </div><!--//app-card-header-->
             <div class="app-card-body px-4">
-                <div class="intro">Sed maximus, libero ac pharetra elementum, turpis nisi molestie neque, et tincidunt velit turpis non enim.
+                <div class="intro">Opciones disponibles para la administracion del inventario.
                 </div>
             </div><!--//app-card-body-->
             <div class="app-card-footer p-4 mt-auto">
-                <a class="btn app-btn-secondary" href="#">Create New</a>
+                <a class="btn app-btn-secondary" href="{% url 'usuarios:agregarcliente' %}">Agregar producto</a>
+                <a class="btn app-btn-secondary" href="{% url 'usuarios:agregarproveedor' %}">Agregar Stock</a>
             </div><!--//app-card-footer-->
         </div><!--//app-card-->
     </div><!--//col-->
