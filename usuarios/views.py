@@ -11,6 +11,7 @@ from django.urls import reverse
 import speedtest
 from django.contrib import auth
 from Ferre.models import Usuario, Clientes
+from Ferre.forms import AddClientes
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -50,6 +51,7 @@ class ListaClientes(LoginRequiredMixin, View):
 class AgregarClientes(LoginRequiredMixin, View):
     login_url = '/'
     template_name = 'usuarios/agregarcliente.html'
+    form = AddClientes
 
     def get(self, request):
         try:
@@ -58,8 +60,9 @@ class AgregarClientes(LoginRequiredMixin, View):
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
+            form = self.form
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp,}
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'formulariocliente':form,}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
