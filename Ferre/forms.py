@@ -13,12 +13,13 @@ class AddClientes(forms.ModelForm):
             'Nombrecompleto': _(u'Nombre completo o razon social'),
             'Direccion': _(u'Direccion completa'),
             'Telefono': _(u'Telefono'),
+            'Correo': _(u'Correo electronico'),
             'Tipocliente': _(u'Tipo de cliente'),
             'CedulaRepresentante': _(u'Cedula representante legal'),
             'NombreRepresentante': _(u'Nombre representante legal'),
         }
 
-    def __init__(self, Clientes=None, *args, **kwargs):
+    def __init__(self, clientes=None, *args, **kwargs):
         super(AddClientes, self).__init__(*args, **kwargs)
 
         for field in self.fields:

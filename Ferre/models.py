@@ -33,6 +33,7 @@ class Clientes(models.Model):
     Nombrecompleto = models.CharField(max_length=100, null=False)
     Direccion = models.CharField(max_length=50, null=False)
     Telefono = models.CharField(max_length=50, null=False)
+    Correo = models.EmailField(max_length=50, null=True)
     Tipocliente = models.CharField(max_length= 50, null=False, choices=DOC_CHOICES)
     CedulaRepresentante = models.CharField(max_length=50, null=True)
     NombreRepresentante = models.CharField(max_length=50, null=True)
@@ -44,14 +45,22 @@ class Clientes(models.Model):
         verbose_name_plural = "Datos clientes"
         verbose_name = "Datos cliente"
 
+DOC_CHOICES1 = (
+    ('Minoristas', _(u"Minorista")),
+    ('Mayorista', _(u"Mayorista")),
+)
+
 class Proveedor(models.Model):
     IdProveedor = models.CharField(primary_key=True, max_length=25, null=False)
     Nombrecompleto = models.CharField(max_length=100, null=False)
     Direccion = models.CharField(max_length=50, null=False)
     Telefono = models.CharField(max_length=50, null=False)
+    Correo = models.EmailField(max_length=50, null=True)
     TipoProveedor = models.CharField(max_length= 50, null=False, choices=DOC_CHOICES)
+    ClaseProveedor = models.CharField(max_length= 50, null=False, choices=DOC_CHOICES1)
     CedulaRepresentante = models.CharField(max_length=50, null=True)
     NombreRepresentante = models.CharField(max_length=50, null=True)
+    Rut = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return "%s %s" % (self.IdProveedor, self.Nombrecompleto)

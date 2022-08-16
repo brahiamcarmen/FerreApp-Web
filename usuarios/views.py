@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
 from django.contrib import auth
-from Ferre.models import Usuario, Clientes
+from Ferre.models import Usuario, Clientes, Proveedor
 from Ferre.forms import AddClientes
 
 class Inicio(LoginRequiredMixin, View):
@@ -63,6 +63,40 @@ class AgregarClientes(LoginRequiredMixin, View):
             form = self.form
             return render(request,
                           self.template_name,{'proyecto': proyectov,'version':versionp,'formulariocliente':form,}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+    def post(self, request):
+        try:
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            form = self.form(request.user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.INFO, 'la informacion del cliente se agrego correctamente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+            else:
+                messages.add_message(request, messages.ERROR, 'No se puedo agregar la informacion del cliente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class ListaProveedores(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/listadoproveedores.html'
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            proveedores = Proveedor.objects.all()
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'proveedores':proveedores}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
