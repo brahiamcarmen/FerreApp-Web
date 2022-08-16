@@ -46,3 +46,20 @@ class ListaClientes(LoginRequiredMixin, View):
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
+
+class AgregarClientes(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/agregarcliente.html'
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
