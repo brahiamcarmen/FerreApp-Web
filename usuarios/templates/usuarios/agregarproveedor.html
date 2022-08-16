@@ -2,12 +2,12 @@
 {% load static %}
 {% block styles %}
 {% endblock %}
-{%block title %} <title>AC</title> {%endblock%}
+{%block title %} <title>AP</title> {%endblock%}
 {% block content %}
 {% include 'usuarios/alerts.html' %}
                 <div class="row g-4 settings-section">
                     <div class="col-12 col-md-4">
-                        <h3 class="section-title">Agregar cliente</h3>
+                        <h3 class="section-title">Agregar proveedor</h3>
                         <div class="section-intro">Settings section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="help.html">Learn more</a></div>
                     </div>
                     <div class="col-12 col-md-8">
@@ -17,13 +17,13 @@
                                 <form method="post" enctype="multipart/form-data" class="settings-form">
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
-                                    {% for field in formulariocliente %}
+                                    {% for field in formularioproveedor %}
                                     <div class="mb-3">
                                         <label for="setting-input-2" class="form-label">{{ field.label }}</label>
                                          {{ field }}
                                     </div>
                                     {% endfor %}
-                                    <button type="submit" class="btn app-btn-primary" style="width:100%">Guardar</button>
+                                    <button type="submit" class="btn app-btn-primary" style="width: 100%">Guardar</button>
                                 </form>
                             </div><!--//app-card-body-->
                             

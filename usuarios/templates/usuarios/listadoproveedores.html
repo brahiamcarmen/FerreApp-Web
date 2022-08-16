@@ -51,19 +51,20 @@
                                         <th class="cell">Nombre</th>
                                         <th class="cell">Dirección</th>
                                         <th class="cell">Telefono</th>
-                                        <th class="cell">Tipo cliente</th>
+                                        <th class="cell">Clase Proveedor</th>
                                         <th class="cell">Ver</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for cliente in clientes %}
+                                    {% for proveedor in proveedores %}
                                     <tr>
-                                        <td class="cell">{{cliente.Idcliente|intcomma}}</td>
-                                        <td class="cell">{{cliente.Nombrecompleto}}</td>
-                                        <td class="cell">{{cliente.Direccion}}</td>
-                                        <td class="cell"><span>{{cliente.Telefono}}</span><span class="note">2:16 PM</span></td>
-                                        <td class="cell"><span class="badge bg-success">{{cliente.Tipocliente}}</span></td>
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+                                        <td class="cell">{{proveedor.IdProveedor|intcomma}}</td>
+                                        <td class="cell">{{proveedor.Nombrecompleto}}</td>
+                                        <td class="cell">{{proveedor.Direccion}}</td>
+                                        <td class="cell"><span>{{proveedor.Telefono}}</span></td>
+                                        <td class="cell"><span class="badge bg-success">{{proveedor.ClaseProveedor}}</span>
+                                        <span class="note">{{proveedor.TipoProveedor}}</span></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="#">Ver</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
