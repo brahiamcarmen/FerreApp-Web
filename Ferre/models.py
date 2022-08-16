@@ -68,3 +68,19 @@ class Proveedor(models.Model):
     class Meta:
         verbose_name_plural = "Datos proveedor"
         verbose_name = "Datos proveedor"
+
+class Productos(models.Model):
+    IdProducto = models.CharField(primary_key=True, max_length=25, null=False)
+    NombreProducto = models.CharField(max_length=100, null=False)
+    categoria = models.CharField(max_length=100, null=False)
+    Proveedor = models.CharField(max_length=50, null=False)
+    Stock = models.IntegerField(max_length=50, null=True)
+    precioUnidad = models.IntegerField(max_length=50, null=True)
+    Historico = models.IntegerField(max_length=50, null=True)
+
+    def __str__(self):
+        return "%s %s" % (self.IdProducto, self.NombreProducto)
+
+    class Meta:
+        verbose_name_plural = "Datos productos"
+        verbose_name = "Dato producto"
