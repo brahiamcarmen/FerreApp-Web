@@ -17,6 +17,7 @@ class AddClientes(forms.ModelForm):
             'Tipocliente': _(u'Tipo de cliente'),
             'CedulaRepresentante': _(u'Cedula representante legal'),
             'NombreRepresentante': _(u'Nombre representante legal'),
+            'telefonoRepresentante': _(u'telefono representante legal'),
         }
 
     def __init__(self, clientes=None, *args, **kwargs):
@@ -41,9 +42,10 @@ class AddProveedor(forms.ModelForm):
             'CedulaRepresentante': _(u'Cedula representante legal'),
             'NombreRepresentante': _(u'Nombre representante legal'),
             'Rut': _(u'Registro unico tributario'),
-            'cuentapago1': _(u'Cuenta de pago'),
-            'cuentapago2': _(u'Cuenta de pago (opcional)'),
-
+            'cuentapago1': _(u'Cuenta de pago 1'),
+            'tipocuenta1': _(u'Tipo cuenta 1'),
+            'cuentapago2': _(u'Cuenta de pago 2 (opcional)'),
+            'tipocuenta2': _(u'Tipo cuenta 2'),
         }
 
     def __init__(self, clientes=None, *args, **kwargs):

@@ -64,7 +64,7 @@
                                         <td class="cell"><span>{{proveedor.Telefono}}</span></td>
                                         <td class="cell"><span class="badge bg-success">{{proveedor.ClaseProveedor}}</span>
                                         <span class="note">{{proveedor.TipoProveedor}}</span></td>
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="#">Ver</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'usuarios:verproveedor' proveedor.IdProveedor %}">Ver</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

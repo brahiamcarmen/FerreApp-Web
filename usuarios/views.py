@@ -142,15 +142,58 @@ class VerCliente(LoginRequiredMixin, View):
     login_url = '/'
     template_name = 'usuarios/verinfocliente.html'
 
-    def get(self, request):
+    def get(self, request, Idcliente):
         try:
             nombre = open('static/serial/NombreProyecto.txt', 'r')
             proyectov = nombre.read()
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
+            cliente = Clientes.objects.get(Idcliente=Idcliente)
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp}
+                          self.template_name,{'proyecto': proyectov,'version':versionp,
+                                              'identificador': cliente.Idcliente,
+                                              'nombre': cliente.Nombrecompleto,
+                                              'direccion':cliente.Direccion,
+                                              'correo': cliente.Correo,
+                                              'telefono': cliente.Telefono,
+                                              'tipo': cliente.Tipocliente,
+                                              'nombrer': cliente.NombreRepresentante,
+                                              'identir':cliente.CedulaRepresentante,
+                                              'telefonor':cliente.telefonoRepresentante}
                             )
         except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+
+class VerProveedor(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/verproveedor.html'
+
+    def get(self, request, Idproveedor):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            cliente = Proveedor.objects.get(IdProveedor=Idproveedor)
+            return render(request,self.template_name,{'proyecto': proyectov,'version':versionp,
+                                              'identificador': cliente.IdProveedor,
+                                              'nombre': cliente.Nombrecompleto,
+                                              'direccion':cliente.Direccion,
+                                              'correo': cliente.Correo,
+                                              'telefono': cliente.Telefono,
+                                              'tipo': cliente.TipoProveedor,
+                                              'clase':cliente.ClaseProveedor,
+                                              'nombrer': cliente.NombreRepresentante,
+                                              'identir':cliente.CedulaRepresentante,
+                                              'telefonor':cliente.TelefonoRepresentante,
+                                              'rut': cliente.Rut,
+                                              'tipo1': cliente.tipocuenta1,
+                                              'tipo2': cliente.tipocuenta2,
+                                              'cuenta1': cliente.cuentapago1,
+                                              'cuenta2': cliente.cuentapago2}
+                            )
+        except Proveedor.DoesNotExist:
             return render(request, "pages-404.html")

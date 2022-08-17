@@ -2,11 +2,11 @@
 {% load static %}
 {% block styles %}
 {% endblock %}
-{%block title %} <title>VC</title> {%endblock%}
+{%block title %} <title>VP</title> {%endblock%}
 {% load humanize %}
 {% block content %}
 {% include 'usuarios/alerts.html' %}                
-<h1 class="app-page-title">Informacion del cliente</h1>
+<h1 class="app-page-title">Informacion del proveedor</h1>
 <div class="row gy-4">
     <div class="col-12 col-lg-6">
         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -61,11 +61,27 @@
                     <div class="item border-bottom py-3">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
-                                <div class="item-label"><strong>Tipo de cliente</strong></div>
+                                <div class="item-label"><strong>Tipo de Proveedor</strong></div>
                                 <div class="item-data">{{tipo}}</div>
                             </div><!--//col-->
                         </div><!--//row-->
                     </div><!--//item-->
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Clase de Proveedor</strong></div>
+                                <div class="item-data">{{clase}}</div>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div>
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>RUT</strong></div>
+                                <div class="item-data">{{rut|intcomma}}</div>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div>
             </div><!--//app-card-body-->
             <div class="app-card-footer p-4 mt-auto">
                 <a class="btn app-btn-secondary" href="#">Moficiar informacion</a>
@@ -149,12 +165,50 @@
                         </div><!--//row-->
                     </div><!--//item-->
             </div><!--//app-card-body-->
-            <div class="app-card-footer p-4 mt-auto">
-                <a class="btn app-btn-secondary" href="#">Moficiar informacion</a>
-            </div>  
         </div><!--//app-card-->
     </div>
-        </div>
+    </div>
+    <div class="row" style="margin-top:1rem">
+                            <div class="col-12 col-lg-12">
+                        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row align-items-center gx-3">
+                                    <div class="col-auto">
+                                        <div class="app-icon-holder">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+</svg>
+                                        </div><!--//icon-holder-->
+                                        
+                                    </div><!--//col-->
+                                    <div class="col-auto">
+                                        <h4 class="app-card-title">Cuentas de pago</h4>
+                                    </div><!--//col-->
+                                </div><!--//row-->
+                            </div><!--//app-card-header-->
+                            <div class="app-card-body px-4 w-100">
+                                
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><i class="fab fa-cc-visa me-2"></i><strong>{{tipo1}} </strong></div>
+                                            <div class="item-data">{{cuenta1}}</div>
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><i class="fab fa-cc-visa me-2"></i><strong>{{tipo2}}</strong></div>
+                                            <div class="item-data">{{cuenta2}}</div>
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
+                            </div><!--//app-card-body-->
+                        </div><!--//app-card-->
+                    </div>
+    </div>
     </div>
 </div><!--//row-->
         <div class="row gy-4" style="margin-top: 1rem;">

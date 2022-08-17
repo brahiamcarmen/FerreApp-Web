@@ -63,7 +63,7 @@
                                         <td class="cell">{{cliente.Direccion}}</td>
                                         <td class="cell"><span>{{cliente.Telefono}}</span><span class="note">2:16 PM</span></td>
                                         <td class="cell"><span class="badge bg-success">{{cliente.Tipocliente}}</span></td>
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'usuarios:vercliente' %}">Ver</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'usuarios:vercliente' cliente.Idcliente %}">Ver</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
