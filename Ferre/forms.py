@@ -41,6 +41,9 @@ class AddProveedor(forms.ModelForm):
             'CedulaRepresentante': _(u'Cedula representante legal'),
             'NombreRepresentante': _(u'Nombre representante legal'),
             'Rut': _(u'Registro unico tributario'),
+            'cuentapago1': _(u'Cuenta de pago'),
+            'cuentapago2': _(u'Cuenta de pago (opcional)'),
+
         }
 
     def __init__(self, clientes=None, *args, **kwargs):
