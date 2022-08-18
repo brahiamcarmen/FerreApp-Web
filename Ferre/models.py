@@ -86,7 +86,8 @@ class Productos(models.Model):
     Categoria = models.CharField(max_length=100, null=False)
     Proveedor = models.CharField(max_length=50, null=False)
     Stock = models.IntegerField(null=True)
-    precioUnidad = models.IntegerField(null=True)
+    PrecioCompra = models.IntegerField(null=True)
+    PrecioVenta = models.IntegerField(null=True)
     Historico = models.IntegerField(null=True)
 
     def __str__(self):

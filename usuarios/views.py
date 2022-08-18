@@ -11,7 +11,7 @@ from django.urls import reverse
 import speedtest
 from django.contrib import auth
 from Ferre.models import Usuario, Clientes, Proveedor
-from Ferre.forms import AddClientes, AddProveedor
+from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -82,6 +82,47 @@ class AgregarClientes(LoginRequiredMixin, View):
 
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
+
+
+class ModificarClientes(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/modificarcliente.html'
+    form = UpdateClientes
+
+    def get(self, request, identificador):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            IdCliente = identificador
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            datoscliente = Clientes.objects.get(Idcliente=IdCliente)
+            form = self.form(instance=datoscliente)
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'formulariocliente':form,}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+    def post(self, request, identificador):
+        try:
+            IdCliente = identificador
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            datoscliente = Clientes.objects.get(Idcliente=IdCliente)
+            form = self.form(request.user, request.POST, instance=datoscliente)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.INFO, 'la informacion del cliente se modifico correctamente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+            else:
+                messages.add_message(request, messages.ERROR, 'No se puedo modificar la informacion del cliente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
 
 class ListaProveedores(LoginRequiredMixin, View):
     login_url = '/'
@@ -196,4 +237,43 @@ class VerProveedor(LoginRequiredMixin, View):
                                               'cuenta2': cliente.cuentapago2}
                             )
         except Proveedor.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class ModificarProveedor(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/modificarproveedor.html'
+    form = UpdateProveedor
+
+    def get(self, request, identificador):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            IdProveedor= identificador
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            datosproveedor = Proveedor.objects.get(IdProveedor=IdProveedor)
+            form = self.form(instance=datosproveedor)
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'identificador': IdProveedor,'formularioproveedor':form,}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+    def post(self, request, identificador):
+        try:
+            IdProveedor= identificador
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            datosproveedor = Proveedor.objects.get(IdProveedor=IdProveedor)
+            form = self.form(request.user, request.POST, instance=datosproveedor)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.INFO, 'la informacion del cliente se modifico correctamente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+            else:
+                messages.add_message(request, messages.ERROR, 'No se puedo modificar la informacion del cliente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+        except Usuario.DoesNotExist:
             return render(request, "pages-404.html")

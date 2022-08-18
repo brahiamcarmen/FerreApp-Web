@@ -1,0 +1,36 @@
+{% extends 'usuarios/base.html' %}
+{% load static %}
+{% block styles %}
+{% endblock %}
+{%block title %} <title>MIC</title> {%endblock%}
+{% block content %}
+{% include 'usuarios/alerts.html' %}
+                <div class="row g-4 settings-section">
+                    <div class="col-12 col-md-4">
+                        <h3 class="section-title">Modificar información del cliente</h3>
+                        <div class="section-intro">Settings section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="help.html">Learn more</a></div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="app-card app-card-settings shadow-sm p-4">
+                            
+                            <div class="app-card-body">
+                                <form method="post" enctype="multipart/form-data" class="settings-form">
+                                    {% csrf_token %}
+                                    {{ form.non_field_errors }}
+                                    {% for field in formulariocliente %}
+                                    <div class="mb-3">
+                                        <label for="setting-input-2" class="form-label">{{ field.label }}</label>
+                                         {{ field }}
+                                    </div>
+                                    {% endfor %}
+                                    <button type="submit" class="btn app-btn-primary" style="width:100%">Guardar</button>
+                                </form>
+                                <button class="btn app-btn-primary" style="width: 100%; margin-top: 1rem;" onclick="window.location='{% url 'usuarios:vercliente' identificador %}'">Cancelar</button>
+                            </div><!--//app-card-body-->
+                            
+                        </div><!--//app-card-->
+                    </div>
+                </div><!--//row-->
+{% endblock %}
+{% block scripts %}
+{% endblock %}
