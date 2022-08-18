@@ -89,6 +89,7 @@ class Productos(models.Model):
     PrecioCompra = models.IntegerField(null=True)
     PrecioVenta = models.IntegerField(null=True)
     Historico = models.IntegerField(null=True)
+    Fecha = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
         return "%s %s" % (self.IdProducto, self.NombreProducto)

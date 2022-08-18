@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
-from Ferre.models import Clientes, Proveedor
+from Ferre.models import Clientes, Proveedor, Productos
 
 class AddClientes(forms.ModelForm):
     class Meta:
@@ -105,6 +105,27 @@ class UpdateProveedor(forms.ModelForm):
 
     def __init__(self, proveedor=None, *args, **kwargs):
         super(UpdateProveedor, self).__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+class AddProductos(forms.ModelForm):
+    class Meta:
+        model = Productos
+        fields = "__all__"
+        labels ={
+            'IdProducto': _(u'Identificador del producto'),
+            'NombreProducto': _(u'Descripcion'),
+            'Categoria': _(u'Categoria'),
+            'Proveedor': _(u'Proveedor'),
+            'Stock': _(u'Stock'),
+            'PrecioCompra': _(u'Precio de Compra'),
+            'PrecioVenta': _(u'Precio de Venta'),
+            'Historico': _(u'Historico (valor igual al Stock)'),
+        }
+
+    def __init__(self, clientes=None, *args, **kwargs):
+        super(AddProductos, self).__init__(*args, **kwargs)
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})

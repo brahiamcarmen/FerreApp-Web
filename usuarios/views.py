@@ -10,8 +10,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
 from django.contrib import auth
-from Ferre.models import Usuario, Clientes, Proveedor
-from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor
+from Ferre.models import Usuario, Clientes, Proveedor, Productos
+from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -24,8 +24,14 @@ class Inicio(LoginRequiredMixin, View):
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
+            stock = Productos.objects.all()
+
+            cantstock = 0
+            for i in stock:
+                cantstock += i.Stock
+
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp},
+                          self.template_name,{'proyecto': proyectov,'version':versionp, 'cantstock':cantstock},
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -273,6 +279,61 @@ class ModificarProveedor(LoginRequiredMixin, View):
 
             else:
                 messages.add_message(request, messages.ERROR, 'No se puedo modificar la informacion del cliente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class ListaProductos(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/listadoproductos.html'
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            productos = Productos.objects.all()
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'productos':productos}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+
+class AgregarProducto(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/agregarproducto.html'
+    form = AddProductos
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            form = self.form
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'formularioproductos':form,}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+    def post(self, request):
+        try:
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            form = self.form(request.user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.INFO, 'El producto se agrego correctamente')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+            else:
+                messages.add_message(request, messages.ERROR, 'No se pudo agregar el producto')
                 return HttpResponseRedirect(reverse('usuarios:inicio'))
 
         except Usuario.DoesNotExist:
