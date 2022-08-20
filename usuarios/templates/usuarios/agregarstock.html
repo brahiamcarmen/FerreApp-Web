@@ -1,0 +1,119 @@
+{% extends 'usuarios/base.html' %}
+{% load static %}
+{% block styles %}
+{% endblock %}
+{%load humanize %}
+{%block title %} <title>Agregar stock</title> {%endblock%}
+{% block content %}
+{% include 'usuarios/alerts.html' %}
+<div class="row g-4 settings-section">
+    <div class="col-12 col-md-4">
+        <div class="row">
+            <h3 class="section-title">Agregar stock</h3>
+        </div>
+        <div class="row" style="margin-top: 1rem;">
+                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                    <div class="app-card-header p-3 border-bottom-0">
+                        <div class="row align-items-center gx-3">
+                            <div class="col-auto">
+                                <div class="app-icon-holder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+                                      <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                    </svg>
+                                </div><!--//icon-holder-->
+                                                
+                            </div><!--//col-->
+                            <div class="col-auto">
+                                <h4 class="app-card-title">Información del producto</h4>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div><!--//app-card-header-->
+                    <div class="app-card-body px-4 w-100  text-center">
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Identificacion</strong></div>
+                                        <div class="item-data">{{idproducto}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>CategorÍa</strong></div>
+                                        <div class="item-data">{{categoria}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Historico</strong></div>
+                                        <div class="item-data">{{historico}}</div>
+                                    </div><!--//col-->
+                                </div>
+                            </div>
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Stock</strong></div>
+                                        <div class="item-data">{{stock}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Precio venta</strong></div>
+                                        <div class="item-data">${{pventa|intcomma}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Precio compra</strong></div>
+                                        <div class="item-data">${{pcompra|intcomma}}</div>
+                                    </div><!--//col-->
+                                </div><!--//row-->
+                            </div>
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Nombre producto</strong></div>
+                                        <div class="item-data">{{nombrep}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Proveedor</strong></div>
+                                        <div class="item-data">{{proveedor}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Fecha actualización</strong></div>
+                                        <div class="item-data">{{fecha}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div> 
+                </div><!--//app-card-->
+            </div>
+                        
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="app-card app-card-settings shadow-sm p-4">
+                            
+                            <div class="app-card-body">
+                                <form method="post" enctype="multipart/form-data" class="settings-form">
+                                    {% csrf_token %}
+                                    {{ form.non_field_errors }}
+                                     <div class="mb-3">
+                                        <label for="setting-input-2" class="form-label">Cantidad</label>
+                                         <input type="number" class="form-control" id="cantidad">
+                                    </div>
+                                    {% for field in formulariostock %}
+                                    <div class="mb-3">
+                                        <label for="setting-input-2" class="form-label">{{ field.label }}</label>
+                                         {{ field }}
+                                    </div>
+                                    {% endfor %}
+                                    <button type="submit" class="btn app-btn-primary" style="width: 100%">Agregar</button>
+                                </form>
+                            </div><!--//app-card-body-->
+                            
+                        </div><!--//app-card-->
+                    </div>
+                </div><!--//row-->
+{% endblock %}
+{% block scripts %}
+{% endblock %}

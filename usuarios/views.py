@@ -11,7 +11,7 @@ from django.urls import reverse
 import speedtest
 from django.contrib import auth
 from Ferre.models import Usuario, Clientes, Proveedor, Productos
-from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos
+from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -334,6 +334,59 @@ class AgregarProducto(LoginRequiredMixin, View):
 
             else:
                 messages.add_message(request, messages.ERROR, 'No se pudo agregar el producto')
+                return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class AgregarStock(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/agregarstock.html'
+    form = AddStock
+
+    def get(self, request,identificador):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            producto = Productos.objects.get(IdProducto=identificador)
+
+            form = self.form(instance=producto)
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'formulariostock':form,'fecha': producto.Fecha,
+                                              'idproducto': producto.IdProducto, 'nombrep': producto.NombreProducto,
+                                              'proveedor':producto.Proveedor,'categoria': producto.Categoria,'historico':producto.Historico,
+                                              'stock': producto.Stock, 'pcompra': producto.PrecioCompra, 'pventa': producto.PrecioVenta}
+                            )
+        except Productos.DoesNotExist:
+            return render(request, "pages-404.html")
+
+    def post(self, request, identificador):
+        try:
+            cantidad = request.POST.get("cantidad")
+            preciocompra = request.POST.get("PrecioCompra")
+            precioventa = request.POST.get("PrecioVenta")
+            producto = Productos.objects.get(IdProducto=identificador).exists()
+
+            datos = Usuario.objects.get(usuid=request.user.pk)
+
+            if producto is True:
+                if cantidad and preciocompra and precioventa is not None:
+                    producto = Productos.objects.get(IdProducto=identificador)
+                    suma = producto.Stock + cantidad
+                    producto.Stock = suma
+                    producto.PrecioVenta = precioventa
+                    producto.PrecioCompra = preciocompra
+                    historico = producto.Historico + cantidad
+                    producto.Historico = historico
+                    messages.add_message(request, messages.INFO, 'la informacion del cliente se modifico correctamente')
+                    return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+            else:
+                messages.add_message(request, messages.ERROR, 'No se puedo modificar la informacion del cliente')
                 return HttpResponseRedirect(reverse('usuarios:inicio'))
 
         except Usuario.DoesNotExist:

@@ -129,3 +129,21 @@ class AddProductos(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+class AddStock(forms.ModelForm):
+    class Meta:
+        model = Productos
+        fields = [
+            'PrecioCompra',
+            'PrecioVenta'
+        ]
+        labels ={
+            'PrecioCompra': _(u'Precio de Compra'),
+            'PrecioVenta': _(u'Precio de Venta'),
+        }
+
+    def __init__(self, clientes=None, *args, **kwargs):
+        super(AddStock, self).__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})

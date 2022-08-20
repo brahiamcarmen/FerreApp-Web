@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from usuarios.views import Inicio, ListaClientes, AgregarClientes, ListaProveedores,\
-    ModificarClientes,Agregarproveedor, VerCliente, VerProveedor, ModificarProveedor, ListaProductos, AgregarProducto
+from usuarios.views import Inicio, ListaClientes, AgregarClientes, ListaProveedores, ModificarClientes,Agregarproveedor
+from usuarios.views import VerCliente, VerProveedor, ModificarProveedor, ListaProductos, AgregarProducto,AgregarStock
 
 urlpatterns = [
     url(r'^inicio/', Inicio.as_view(), name='inicio'),
@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'modificarproveedor/(?P<identificador>\w+)', ModificarProveedor.as_view(), name='modificarproveedor'),
     url(r'listadoproductos', ListaProductos.as_view(), name='listadoproductos'),
     url(r'agregarproducto', AgregarProducto.as_view(), name='agregarproducto'),
+    url(r'agregarstock/(?P<identificador>\w+)', AgregarStock.as_view(), name='agregarstock'),
+
 ]
