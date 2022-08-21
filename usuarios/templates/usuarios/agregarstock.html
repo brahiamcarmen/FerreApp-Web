@@ -72,14 +72,6 @@
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-auto">
-                                        <div class="item-label"><strong>Proveedor</strong></div>
-                                        <div class="item-data">{{proveedor}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-auto">
                                         <div class="item-label"><strong>Fecha actualización</strong></div>
                                         <div class="item-data">{{fecha}}</div>
                                     </div>
@@ -99,7 +91,7 @@
                                     {{ form.non_field_errors }}
                                      <div class="mb-3">
                                         <label for="setting-input-2" class="form-label">Cantidad</label>
-                                         <input type="number" class="form-control" id="cantidad">
+                                         <input type="number" class="form-control" name="Cantidad">
                                     </div>
                                     {% for field in formulariostock %}
                                     <div class="mb-3">

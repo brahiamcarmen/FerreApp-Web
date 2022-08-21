@@ -117,7 +117,6 @@ class AddProductos(forms.ModelForm):
             'IdProducto': _(u'Identificador del producto'),
             'NombreProducto': _(u'Descripcion'),
             'Categoria': _(u'Categoria'),
-            'Proveedor': _(u'Proveedor'),
             'Stock': _(u'Stock'),
             'PrecioCompra': _(u'Precio de Compra'),
             'PrecioVenta': _(u'Precio de Venta'),

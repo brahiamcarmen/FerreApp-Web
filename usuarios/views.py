@@ -80,11 +80,11 @@ class AgregarClientes(LoginRequiredMixin, View):
             if form.is_valid():
                 form.save()
                 messages.add_message(request, messages.INFO, 'la informacion del cliente se agrego correctamente')
-                return HttpResponseRedirect(reverse('usuarios:inicio'))
+                return HttpResponseRedirect(reverse('usuarios:listadoclientes'))
 
             else:
                 messages.add_message(request, messages.ERROR, 'No se puedo agregar la informacion del cliente')
-                return HttpResponseRedirect(reverse('usuarios:inicio'))
+                return HttpResponseRedirect(reverse('usuarios:agregarcliente'))
 
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -330,11 +330,11 @@ class AgregarProducto(LoginRequiredMixin, View):
             if form.is_valid():
                 form.save()
                 messages.add_message(request, messages.INFO, 'El producto se agrego correctamente')
-                return HttpResponseRedirect(reverse('usuarios:inicio'))
+                return HttpResponseRedirect(reverse('usuarios:listadoproductos'))
 
             else:
                 messages.add_message(request, messages.ERROR, 'No se pudo agregar el producto')
-                return HttpResponseRedirect(reverse('usuarios:inicio'))
+                return HttpResponseRedirect(reverse('usuarios:listadoproductos'))
 
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -357,8 +357,7 @@ class AgregarStock(LoginRequiredMixin, View):
             form = self.form(instance=producto)
             return render(request,
                           self.template_name,{'proyecto': proyectov,'version':versionp,'formulariostock':form,'fecha': producto.Fecha,
-                                              'idproducto': producto.IdProducto, 'nombrep': producto.NombreProducto,
-                                              'proveedor':producto.Proveedor,'categoria': producto.Categoria,'historico':producto.Historico,
+                                              'idproducto': producto.IdProducto, 'nombrep': producto.NombreProducto,'categoria': producto.Categoria,'historico':producto.Historico,
                                               'stock': producto.Stock, 'pcompra': producto.PrecioCompra, 'pventa': producto.PrecioVenta}
                             )
         except Productos.DoesNotExist:
@@ -366,23 +365,28 @@ class AgregarStock(LoginRequiredMixin, View):
 
     def post(self, request, identificador):
         try:
-            cantidad = request.POST.get("cantidad")
+            cantidad = request.POST.get("Cantidad")
             preciocompra = request.POST.get("PrecioCompra")
             precioventa = request.POST.get("PrecioVenta")
-            producto = Productos.objects.get(IdProducto=identificador).exists()
+            producto = Productos.objects.filter(IdProducto=identificador).exists()
 
             datos = Usuario.objects.get(usuid=request.user.pk)
 
             if producto is True:
                 if cantidad and preciocompra and precioventa is not None:
                     producto = Productos.objects.get(IdProducto=identificador)
-                    suma = producto.Stock + cantidad
-                    producto.Stock = suma
-                    producto.PrecioVenta = precioventa
-                    producto.PrecioCompra = preciocompra
-                    historico = producto.Historico + cantidad
-                    producto.Historico = historico
+                    suma = producto.Stock + int(cantidad)
+                    producto.Stock = int(suma)
+                    producto.PrecioVenta = int(precioventa)
+                    producto.PrecioCompra = int(preciocompra)
+                    historico = producto.Historico + int(cantidad)
+                    producto.Historico = int(historico)
+                    producto.save()
                     messages.add_message(request, messages.INFO, 'la informacion del cliente se modifico correctamente')
+                    return HttpResponseRedirect(reverse('usuarios:inicio'))
+
+                else:
+                    messages.add_message(request, messages.ERROR, 'No se puedo agregar informacion al stock')
                     return HttpResponseRedirect(reverse('usuarios:inicio'))
 
             else:

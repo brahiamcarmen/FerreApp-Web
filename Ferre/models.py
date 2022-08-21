@@ -84,7 +84,6 @@ class Productos(models.Model):
     IdProducto = models.CharField(primary_key=True, max_length=25, null=False)
     NombreProducto = models.CharField(max_length=100, null=False)
     Categoria = models.CharField(max_length=100, null=False)
-    Proveedor = models.CharField(max_length=50, null=False)
     Stock = models.IntegerField(null=True)
     PrecioCompra = models.IntegerField(null=True)
     PrecioVenta = models.IntegerField(null=True)
@@ -97,3 +96,26 @@ class Productos(models.Model):
     class Meta:
         verbose_name_plural = "Datos productos"
         verbose_name = "Dato producto"
+
+DOC_CHOICES4 = (
+    ('Si', _(u"Si")),
+    ('No', _(u"No")),
+)
+class Ventas(models.Model):
+    IdVentas = models.CharField(primary_key=True, max_length=25, null=False)
+    Fecha = models.DateTimeField(auto_now=True, null=False)
+    Valor = models.IntegerField(null=True)
+    Cantidad = models.IntegerField(null=True)
+    Cliente = models.CharField(max_length=100, null=True)
+    Vendedor = models.CharField(max_length=100, null=False)
+    Domicilio = models.CharField(max_length=5, null=False, choices=DOC_CHOICES4)
+    Productos = models.ManyToManyField(Productos)
+
+
+    def __str__(self):
+        return "%s %s" % (self.IdVentas, self.Cantidad)
+
+    class Meta:
+        verbose_name_plural = "Datos ventas"
+        verbose_name = "Dato venta"
+        ordering = ['Fecha']
