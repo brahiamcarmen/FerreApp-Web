@@ -11,7 +11,7 @@ from django.urls import reverse
 import speedtest
 from django.contrib import auth
 from Ferre.models import Usuario, Clientes, Proveedor, Productos
-from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock
+from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock, AddVenta
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -393,5 +393,41 @@ class AgregarStock(LoginRequiredMixin, View):
                 messages.add_message(request, messages.ERROR, 'No se puedo modificar la informacion del cliente')
                 return HttpResponseRedirect(reverse('usuarios:inicio'))
 
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class AgregarVenta(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/agregarventa.html'
+    form = AddVenta
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            form = self.form
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'formularioventa':form,}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class ListadoVentas(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/listadoventas.html'
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp}
+                            )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")

@@ -81,7 +81,7 @@ class Proveedor(models.Model):
         verbose_name = "Datos proveedor"
 
 class Productos(models.Model):
-    IdProducto = models.CharField(primary_key=True, max_length=25, null=False)
+    IdProducto = models.AutoField(primary_key=True)
     NombreProducto = models.CharField(max_length=100, null=False)
     Categoria = models.CharField(max_length=100, null=False)
     Stock = models.IntegerField(null=True)
@@ -102,7 +102,7 @@ DOC_CHOICES4 = (
     ('No', _(u"No")),
 )
 class Ventas(models.Model):
-    IdVentas = models.CharField(primary_key=True, max_length=25, null=False)
+    IdVentas = models.AutoField(primary_key=True)
     Fecha = models.DateTimeField(auto_now=True, null=False)
     Valor = models.IntegerField(null=True)
     Cantidad = models.IntegerField(null=True)
