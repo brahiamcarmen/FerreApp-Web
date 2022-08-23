@@ -2,6 +2,7 @@ import os
 import socket
 from django.shortcuts import render
 from django.conf import settings
+import json
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -396,6 +397,24 @@ class AgregarStock(LoginRequiredMixin, View):
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
 
+class ListadoVentas(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/listadoventas.html'
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            clientes = Clientes.objects.all()
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp, 'clientes': clientes}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
 class AgregarVenta(LoginRequiredMixin, View):
     login_url = '/'
     template_name = 'usuarios/agregarventa.html'
@@ -409,25 +428,10 @@ class AgregarVenta(LoginRequiredMixin, View):
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
             form = self.form
+            productos = Productos.objects.all()
+
             return render(request,
                           self.template_name,{'proyecto': proyectov,'version':versionp,'formularioventa':form,}
-                            )
-        except Usuario.DoesNotExist:
-            return render(request, "pages-404.html")
-
-class ListadoVentas(LoginRequiredMixin, View):
-    login_url = '/'
-    template_name = 'usuarios/listadoventas.html'
-
-    def get(self, request):
-        try:
-            nombre = open('static/serial/NombreProyecto.txt', 'r')
-            proyectov = nombre.read()
-            version = open('static/serial/Version.txt', 'r')
-            versionp = version.read()
-            datos = Usuario.objects.get(usuid=request.user.pk)
-            return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")

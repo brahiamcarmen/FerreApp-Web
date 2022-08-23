@@ -159,7 +159,6 @@ class AddVenta(forms.ModelForm):
             'Domicilio': _(u'Domicilio'),
             'Productos': _(u'Productos'),
         }
-
     def __init__(self, clientes=None, *args, **kwargs):
         super(AddVenta, self).__init__(*args, **kwargs)
 

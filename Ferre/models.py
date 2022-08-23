@@ -111,7 +111,6 @@ class Ventas(models.Model):
     Domicilio = models.CharField(max_length=5, null=False, choices=DOC_CHOICES4)
     Productos = models.ManyToManyField(Productos)
 
-
     def __str__(self):
         return "%s %s" % (self.IdVentas, self.Cantidad)
 
