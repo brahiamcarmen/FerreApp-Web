@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from usuarios.views import Inicio, ListaClientes, AgregarClientes, ListadoVentas,ListaProveedores, ModificarClientes,Agregarproveedor
+from usuarios.views import Inicio, ListaClientes, AgregarClientes,ListadoVentas,ListaProveedores, ModificarClientes,Agregarproveedor
 from usuarios.views import VerCliente, VerProveedor, ModificarProveedor, ListaProductos, AgregarProducto,AgregarStock, AgregarVenta
 
 urlpatterns = [

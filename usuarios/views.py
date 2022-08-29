@@ -3,6 +3,9 @@ import socket
 from django.shortcuts import render
 from django.conf import settings
 import json
+from django.http import JsonResponse
+from django.http import HttpResponse
+from django.core import serializers
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -11,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
 from django.contrib import auth
-from Ferre.models import Usuario, Clientes, Proveedor, Productos
+from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas
 from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock, AddVenta
 
 class Inicio(LoginRequiredMixin, View):
@@ -32,7 +35,7 @@ class Inicio(LoginRequiredMixin, View):
                 cantstock += i.Stock
 
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp, 'cantstock':cantstock},
+                          self.template_name,{'proyecto': proyectov,'version':versionp, 'cantstock':cantstock,'stock': stock}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -408,9 +411,9 @@ class ListadoVentas(LoginRequiredMixin, View):
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
-            clientes = Clientes.objects.all()
+            ventas = Ventas.objects.all()
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp, 'clientes': clientes}
+                          self.template_name,{'proyecto': proyectov,'version':versionp, 'clientes': ventas}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -426,12 +429,13 @@ class AgregarVenta(LoginRequiredMixin, View):
             proyectov = nombre.read()
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
-            datos = Usuario.objects.get(usuid=request.user.pk)
-            form = self.form
-            productos = Productos.objects.all()
+            if request.is_ajax():
+                datos = serializers.serialize("json", Productos.objects.all())
+                print(type(datos))
+                return HttpResponse(datos, content_type='application/json')
 
-            return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp,'formularioventa':form,}
-                            )
+            else:
+                return render(request,self.template_name,{'proyecto': proyectov,'version':versionp})
+
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")

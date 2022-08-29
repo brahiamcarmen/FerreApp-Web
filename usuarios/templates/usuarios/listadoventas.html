@@ -69,10 +69,11 @@
                                 <thead>
                                     <tr>
                                         <th class="cell">Identificador</th>
-                                        <th class="cell">Nombre</th>
-                                        <th class="cell">Dirección</th>
-                                        <th class="cell">Telefono</th>
-                                        <th class="cell">Tipo cliente</th>
+                                        <th class="cell">Valor</th>
+                                        <th class="cell">Cantidad</th>
+                                        <th class="cell">Cliente</th>
+                                        <th class="cell">Fecha de venta</th>
+                                        <th class="cell">Productos</th>
                                         <th class="cell">Ver</th>
                                     </tr>
                                 </thead>
@@ -80,11 +81,12 @@
                                     {% for cliente in clientes %}
                                     <tr>
                                         <td class="cell">{{cliente.Idcliente|intcomma}}</td>
-                                        <td class="cell">{{cliente.Nombrecompleto}}</td>
-                                        <td class="cell">{{cliente.Direccion}}</td>
-                                        <td class="cell"><span>{{cliente.Telefono}}</span><span class="note">2:16 PM</span></td>
-                                        <td class="cell"><span class="badge bg-success">{{cliente.Tipocliente}}</span></td>
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'usuarios:vercliente' cliente.Idcliente %}">Ver</a></td>
+                                        <td class="cell">{{cliente.Valor}}</td>
+                                        <td class="cell">{{cliente.Cantidad}}</td>
+                                        <td class="cell"><span>{{cliente.Cliente}}</span><span class="note">{{cliente.Fecha}}</span></td>
+                                        <td class="cell"><span class="badge bg-success">{{cliente.Domicilio}}</span></td>
+                                        <td class="cell"><span>{{cliente.Productos}}</span></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="">Ver</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

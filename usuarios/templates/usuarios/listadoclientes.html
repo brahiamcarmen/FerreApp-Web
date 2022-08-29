@@ -18,10 +18,7 @@
                     <div class="col-auto">
                         <form class="table-search-form row gx-1 align-items-center">
                             <div class="col-auto">
-                                <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Buscar">
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn app-btn-secondary">Buscar</button>
+                                <input type="text" id="search" name="searchorders" class="form-control search-orders" placeholder="Buscar">
                             </div>
                         </form>
                     </div><!--//col-->
@@ -53,7 +50,7 @@
                 <div class="app-card app-card-orders-table shadow-sm mb-5">
                     <div class="app-card-body">
                         <div class="table-responsive">
-                            <table class="table app-table-hover mb-0 text-center">
+                            <table class="table app-table-hover mb-0 text-center" id="datatable">
                                 <thead>
                                     <tr>
                                         <th class="cell">Identificador</th>
@@ -86,5 +83,19 @@
 </div><!--//row-->
 {% endblock %}
 {% block scripts %}
-
+<script>
+ // Write on keyup event of keyword input element
+ $(document).ready(function(){
+ $("#search").keyup(function(){
+ _this = this;
+ // Show only matching TR, hide rest of them
+ $.each($("#datatable tbody tr"), function() {
+ if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+ $(this).hide();
+ else
+ $(this).show();
+ });
+ });
+});
+</script>
 {% endblock %}
