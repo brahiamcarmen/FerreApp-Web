@@ -90,6 +90,20 @@
                                             <tbody class="text-center">
                                                 <tr>
                                                     <td>1</td>
+                                                    <td class="cell"><input type="text" value="100" name="" id="codigo"></td>
+                                                    <td class="cell"><div id="nombre">Cemento</div></td>
+                                                    <td class="cell  text-center" onchange="sumar();">
+                                                        <input id="numero1" value="25000" onchange="sumar();" type="number" disabled>
+                                                    </td>
+                                                    <td class="cell" onchange="sumar();">
+                                                        <input  id="numero2" onchange="sumar();" type="number">
+                                                    </td>
+                                                    <td class="cell" type="text">
+                                                        <input type="text" id="resultado" disabled>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
                                                     <td class="cell"><input type="text" name="" id="codigo"></td>
                                                     <td class="cell"><div id="nombre">Cemento</div></td>
                                                     <td class="cell  text-center" onchange="sumar();">
@@ -160,7 +174,4 @@
     }
 </script>
 <script src="{% static 'assets/consulta.js' %}"></script>
-<script type="text/javascript">
-    
-</script>
 {% endblock %}
