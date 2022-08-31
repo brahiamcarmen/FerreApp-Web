@@ -9,7 +9,7 @@ function listadoproductos() {
 		error: function (error) {
 			console.log(error)
 		}
-	});
+	});	
 }
 
 $(document).ready(function(){
