@@ -431,7 +431,6 @@ class AgregarVenta(LoginRequiredMixin, View):
             versionp = version.read()
             if request.is_ajax():
                 datos = serializers.serialize("json", Productos.objects.all())
-                print(type(datos))
                 return HttpResponse(datos, content_type='application/json')
 
             else:
