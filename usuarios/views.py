@@ -437,3 +437,21 @@ class AgregarVenta(LoginRequiredMixin, View):
 
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
+
+class ListadoDomicilios(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/listadodomicilios.html'
+
+    def get(self, request):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            datos = Usuario.objects.get(usuid=request.user.pk)
+            domicilios = Domicilio.objects.all()
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp, 'domicilios': domicilios}
+                            )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
