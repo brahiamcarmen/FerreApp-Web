@@ -280,14 +280,11 @@
                         <div class="row">
                             <div class="col-6 col-lg-6 text-center">
                                 <div class="row">
-                                    <div class="col-4 col-lg-4 ">
+                                    <div class="col-6 col-lg-6 ">
                                         <button onclick="javascript:location.reload()" type="button" class="btn app-btn-primary" style="width:100%">Limpiar</button>
                                     </div>
-                                    <div class="col-4 col-lg-4 ">
-                                        <button type="button" class="btn app-btn-primary" style="width:100%">Cotización</button>
-                                    </div>
-                                    <div class="col-4 col-lg-4 ">
-                                        <button data-bs-toggle="modal" data-bs-target="#pagar" type="button" class="btn app-btn-primary" style="width:100%">Pagar</button>
+                                    <div class="col-6 col-lg-6 ">
+                                        <button data-bs-toggle="modal" data-bs-target="#pagar" type="button" class="btn app-btn-primary" style="width:100%">Continuar</button>
                                     </div>
                                 </div>
                             </div>
@@ -313,83 +310,147 @@
 <div class="modal fade" id="pagar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modulo de pago</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-<div class="row g-4">
-    <div class="col-12 col-md-12">
-        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-            <div class="app-card-header p-3 border-bottom-0">
-                <div class="row align-items-center gx-3">
-                    <div class="col-auto">
-                        <div class="app-icon-holder">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                            </svg>
-                        </div>      
-                    </div><!--//col-->
-                    <div class="col-auto">
-                        <h4 class="app-card-title">Informacion cliente</h4>
-                    </div><!--//col-->
-                </div><!--//row-->
-            </div><!--//app-card-header-->
-            <div class="app-card-body px-4 w-100">
-                    <div class="item border-bottom py-3">
-                        <div class="row">
-                            <div class="col-6 col-lg-6 mb-3">
-                                <label for="exampleInputEmail1" class="item-label"><strong>Registrado</strong></label>
-                                <select class="form-select" aria-label=".form-select-sm example">
-                                  <option value="Si">Si</option>
-                                  <option value="No" selected>No</option>
-                                </select>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modulo de pago</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="" enctype="multipart/form-data" oninput="resultado.value=parseInt(cambio.value)-parseInt(pagar.value)">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                        <div class="app-card-header p-3 border-bottom-0">
+                            <div class="row align-items-center gx-3">
+                                <div class="col-auto">
+                                    <div class="app-icon-holder">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                          <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                        </svg>
+                                    </div>      
+                                </div><!--//col-->
+                                <div class="col-auto">
+                                    <h4 class="app-card-title">Informacion cliente</h4>
+                                </div><!--//col-->
+                            </div><!--//row-->
+                        </div><!--//app-card-header-->
+                        <div class="app-card-body px-3 w-100">
+                            <div class="row">
+                                <div class="col-6 col-lg-6">
+                                    <div class="item py-3">
+                                        <label for="exampleInputEmail1" class="item-label"><strong>Domicilio</strong></label>
+                                        <select class="form-select" aria-label=".form-select-sm example">
+                                            <option value="Si">Si</option>
+                                            <option value="No" selected>No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-6">
+                                    <div class="item py-3">
+                                        <label for="exampleInputEmail1" class="item-label"><strong>Cliente registrado</strong></label>
+                                        <select class="form-select" aria-label=".form-select-sm example">
+                                            <option value="Si">Si</option>
+                                            <option value="No" selected>No</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            
-                            <div class="col-6 col-lg-6 mb-3">
-                                <label for="exampleInputEmail1" class="item-label"><strong>Domicilio</strong></label>
-                                <select class="form-select" aria-label=".form-select-sm example">
-                                  <option value="Si">Si</option>
-                                  <option value="No" selected>No</option>
-                                </select>
+                                
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="item-label"><strong>Cliente</strong></label>
+                                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="CC o NIT">
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="mb-3">
+                                            <label class="item-label"><strong>Nombre completo</strong></label>
+                                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="">
+                                        </div>
+                                    </div><!--//row-->
+                                </div><!--//item-->
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="mb-3">
+                                            <div class="item-label"><strong>Dirección</strong></div>
+                                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Dirección de entrega">
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div>
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="mb-3">
+                                            <div class="item-label"><strong>Telefono</strong></div>
+                                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Numero de contacto">
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
+                        </div><!--//app-card-body-->
+                    </div>                
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                        <div class="app-card-header p-3 border-bottom-0">
+                            <div class="row align-items-center gx-3">
+                                <div class="col-auto">
+                                    <div class="app-icon-holder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+                                      <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zM11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                                      <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293 2.354.646zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118l.137-.274z"/>
+                                    </svg>
+                                    </div>      
+                                </div><!--//col-->
+                                <div class="col-auto">
+                                    <h4 class="app-card-title">Informacion de la venta</h4>
+                                </div><!--//col-->
+                            </div><!--//row-->
+                        </div><!--//app-card-header-->
+                        <div class="app-card-body px-3 w-100">
+                            <div class="row">
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="text-center">
+                                            <label for="exampleInputEmail1" class="item-label"><strong>Total a pagar</strong></label>
+                                            <input style="font-size:1.5rem" type="number" id="pagar" value="70000" class="form-control" disabled>
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="item-label"><strong>Efectivo</strong></label>
+                                            <input type="number"name="efectivo" id="cambio" value="0" class="form-control">
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
+                                <div class="item py-1">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="mb-1 text-center">
+                                            <label for="exampleInputEmail1" class="item-label"><strong>Cambio</strong></label><br>
+                                             <output style="font-size:1.5rem" name="resultado" for="pagar valor2">$</output>
+                                        </div>
+                                    </div><!--//row-->
+                                </div>
                             </div>
-                        </div><!--//row-->
-                    </div><!--//item-->
-                    <div class="item border-bottom py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="item-label"><strong>Cliente</strong></label>
-                                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="CC o NIT">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 ">
+                                        <button type="button" class="btn app-btn-primary" style="width:100%">Cotización</button>
+                                    </div>
+                                    <div class="col-6 col-lg-6 ">
+                                        <button data-bs-toggle="modal" data-bs-target="#pagar" type="button" class="btn app-btn-primary" style="width:100%">Continuar</button>
+                                    </div>
                             </div>
-                        </div><!--//row-->
-                    </div>
-                    <div class="item border-bottom py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <label class="item-label"><strong>Nombre completo</strong></label>
-                                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="">
-                            </div><!--//col-->
-                        </div><!--//row-->
-                    </div><!--//item-->
-                    <div class="item border-bottom py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <div class="item-label"><strong>Dirección</strong></div>
-                                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="">
-                            </div><!--//col-->
-                        </div><!--//row-->
-                    </div><!--//item-->
-            </div><!--//app-card-body-->
+
+                        </div><!--//app-card-body-->
+                    </div>   
+                </div>
+            </div>
+            </form>  
         </div>
     </div>
 </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
 </div>
 {% endblock %}
 {% block scripts %}

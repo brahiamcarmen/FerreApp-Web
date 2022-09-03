@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
 from django.contrib import auth
-from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas
+from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas, Domicilio
 from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock, AddVenta
 
 class Inicio(LoginRequiredMixin, View):
@@ -29,13 +29,14 @@ class Inicio(LoginRequiredMixin, View):
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
             stock = Productos.objects.all()
+            domicilios = Domicilio.objects.filter(Estado='Pendiente')
 
             cantstock = 0
             for i in stock:
                 cantstock += i.Stock
 
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp, 'cantstock':cantstock,'stock': stock}
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'domicilios':domicilios, 'cantstock':cantstock,'stock': stock}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -362,7 +363,7 @@ class AgregarStock(LoginRequiredMixin, View):
             return render(request,
                           self.template_name,{'proyecto': proyectov,'version':versionp,'formulariostock':form,'fecha': producto.Fecha,
                                               'idproducto': producto.IdProducto, 'nombrep': producto.NombreProducto,'categoria': producto.Categoria,'historico':producto.Historico,
-                                              'stock': producto.Stock, 'pcompra': producto.PrecioCompra, 'pventa': producto.PrecioVenta}
+                                              'stock': producto.Stock, 'pventa': producto.PrecioVenta}
                             )
         except Productos.DoesNotExist:
             return render(request, "pages-404.html")
@@ -370,19 +371,17 @@ class AgregarStock(LoginRequiredMixin, View):
     def post(self, request, identificador):
         try:
             cantidad = request.POST.get("Cantidad")
-            preciocompra = request.POST.get("PrecioCompra")
             precioventa = request.POST.get("PrecioVenta")
             producto = Productos.objects.filter(IdProducto=identificador).exists()
 
             datos = Usuario.objects.get(usuid=request.user.pk)
 
             if producto is True:
-                if cantidad and preciocompra and precioventa is not None:
+                if cantidad and precioventa is not None:
                     producto = Productos.objects.get(IdProducto=identificador)
                     suma = producto.Stock + int(cantidad)
                     producto.Stock = int(suma)
                     producto.PrecioVenta = int(precioventa)
-                    producto.PrecioCompra = int(preciocompra)
                     historico = producto.Historico + int(cantidad)
                     producto.Historico = int(historico)
                     producto.save()

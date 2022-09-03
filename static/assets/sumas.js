@@ -60,7 +60,7 @@ function sumar6(){
 
     if(numero11!=='' && numero12!==''){
         var suma = parseInt(numero11)*parseInt(numero12);
-         $( "#bloque5" ).append('<input id="resultado7" type="number" value="'+suma+'" disabled>')
+         $( "#bloque6" ).append('<input id="resultado7" type="number" value="'+suma+'" disabled>')
     }
 }
 
@@ -98,7 +98,7 @@ function sumar9(){
 }
 
 function sumar10(){
-    document.getElementById("bloque9").innerHTML = "";
+    document.getElementById("bloque10").innerHTML = "";
     var numero19 = document.getElementById('numero19').value;
     var numero20 = document.getElementById('numero20').value;
 

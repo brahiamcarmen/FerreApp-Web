@@ -31,8 +31,8 @@ DOC_CHOICES = (
 class Clientes(models.Model):
     Idcliente = models.CharField(primary_key=True, max_length=25, null=False)
     Nombrecompleto = models.CharField(max_length=100, null=False)
-    Direccion = models.CharField(max_length=50, null=False)
-    Telefono = models.CharField(max_length=50, null=False)
+    Direccion = models.CharField(max_length=50, null=True)
+    Telefono = models.CharField(max_length=50, null=True)
     Correo = models.EmailField(max_length=50, null=True)
     Tipocliente = models.CharField(max_length= 50, null=False, choices=DOC_CHOICES)
     CedulaRepresentante = models.CharField(max_length=50, null=True)
@@ -85,7 +85,6 @@ class Productos(models.Model):
     NombreProducto = models.CharField(max_length=100, null=False)
     Categoria = models.CharField(max_length=100, null=False)
     Stock = models.IntegerField(null=True)
-    PrecioCompra = models.IntegerField(null=True)
     PrecioVenta = models.IntegerField(null=True)
     Historico = models.IntegerField(null=True)
     Fecha = models.DateTimeField(auto_now=True, null=False)
@@ -118,3 +117,22 @@ class Ventas(models.Model):
         verbose_name_plural = "Datos ventas"
         verbose_name = "Dato venta"
         ordering = ['Fecha']
+
+DOC_CHOICES5 = (
+    ('Pendiente', _(u"Pendiente")),
+    ('Entregado', _(u"Entregado")),
+)
+class Domicilio(models.Model):
+    IdDomicilio = models.AutoField(primary_key=True)
+    IdVenta = models.ForeignKey(Ventas, on_delete=models.CASCADE)
+    Estado = models.CharField(max_length=15, null=False, choices=DOC_CHOICES5)
+    Direccion = models.CharField(max_length=60, null=False)
+    FechaEntrega = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return "%s %s" % (self.IdDomicilio, self.Direccion)
+
+    class Meta:
+        verbose_name_plural = "Datos domicilios"
+        verbose_name = "Dato domicilio"
+        ordering = ['FechaEntrega']

@@ -117,7 +117,6 @@ class AddProductos(forms.ModelForm):
             'NombreProducto': _(u'Descripcion'),
             'Categoria': _(u'Categoria'),
             'Stock': _(u'Stock'),
-            'PrecioCompra': _(u'Precio de Compra'),
             'PrecioVenta': _(u'Precio de Venta'),
             'Historico': _(u'Historico (valor igual al Stock)'),
         }
@@ -132,11 +131,9 @@ class AddStock(forms.ModelForm):
     class Meta:
         model = Productos
         fields = [
-            'PrecioCompra',
             'PrecioVenta'
         ]
         labels ={
-            'PrecioCompra': _(u'Precio de Compra'),
             'PrecioVenta': _(u'Precio de Venta'),
         }
 
