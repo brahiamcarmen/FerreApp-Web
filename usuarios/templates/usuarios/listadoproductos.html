@@ -70,7 +70,6 @@
                                         <td class="cell">{{producto.Categoria}}</td>
                                         <td class="cell">{{producto.Stock}}</td>
                                         <td class="cell"><span>${{producto.PrecioVenta|intcomma}}</span><span class="note">{{producto.Fecha}}</span></td>
-                                        <td class="cell">${{producto.PrecioCompra|intcomma}}</td>
                                         <td class="cell">{{producto.Historico}}</td>
                                         <td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'usuarios:agregarstock' producto.IdProducto %}">Stock</a></td>
                                     </tr>

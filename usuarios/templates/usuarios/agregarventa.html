@@ -6,28 +6,15 @@
 {%block title %} <title>Generar venta</title> {%endblock%}
 {% block content %}
 {% include 'usuarios/alerts.html' %}
-
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
 <div class="row g-4">
-    <div class="col-12 col-md-12">
-                <div class="app-card app-card-account shadow-sm d-flex flex-column">
-                    <div class="app-card-header p-2 border-bottom-0">
-                        <div class="row align-items-center gx-3">
-                            <div class="col-auto">
-                                <div class="app-icon-holder">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                      <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                                    </svg>
-                                </div>      
-                            </div><!--//col-->
-                            <div class="col-auto">
-                                <h4 class="app-card-title">Seleccionar productos</h4>
-                            </div><!--//col-->
-                        </div><!--//row-->
-                    </div>
-                    <div class="app-card-body px-3 w-100">
-                            <div class="item py-1">
+    <div class="col-12 col-lg-12">
+                        <div class="app-card app-card-account shadow-sm d-flex flex-column">
+                    <div class="app-card-body px-0 w-100">
+                            <div class="item py-0">
                                 <div class="row justify-content-between align-items-center">
-                                    <div class="mb-2">
+                                    <div class="mb-1">
                                         <table class="table app-table-hover mb-0 text-center">
                                             <thead>
                                                 <tr>
@@ -43,7 +30,7 @@
                                                 <!-- LINEA 1 -->
                                                 <tr>
                                                     <td>1</td>
-                                                    <td class="cell"><input type="text" onchange="listadoproductos()" name="" id="codigo"></td>
+                                                    <td class="cell"><input type="text" onchange="listadoproductos()" name="codigo" id="codigo"></td>
                                                     <td class="cell">
                                                         <div id="nombre">
                                                         
@@ -55,7 +42,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero2" onchange="sumar1();" type="number">
+                                                        <input  id="numero2" name="cant1" onchange="sumar1();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque1">
@@ -66,7 +53,7 @@
                                                 <!-- LINEA 2 -->
                                                 <tr>
                                                     <td>2</td>
-                                                    <td class="cell"><input type="text" onchange="productodos();" name="" id="codigo2"></td>
+                                                    <td class="cell"><input type="text" onchange="productodos();" name="codigo2" id="codigo2"></td>
                                                     <td class="cell">
                                                         <div id="nombre2">
                                                         
@@ -78,7 +65,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input id="numero4" onchange="sumar2();" type="number">
+                                                        <input id="numero4" name="cant2" onchange="sumar2();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque2">
@@ -89,7 +76,7 @@
                                                 <!-- LINEA 3 -->
                                                 <tr>
                                                     <td>3</td>
-                                                    <td class="cell"><input type="text" onchange="productotres();" name="" id="codigo3"></td>
+                                                    <td class="cell"><input type="text" onchange="productotres();" name="codigo3" id="codigo3"></td>
                                                     <td class="cell">
                                                         <div id="nombre3">
                                                         
@@ -101,7 +88,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero6" onchange="sumar3();" type="number">
+                                                        <input  id="numero6" name="cant3" onchange="sumar3();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque3">
@@ -112,7 +99,7 @@
                                                 <!-- LINEA 4 -->
                                                 <tr>
                                                     <td>4</td>
-                                                    <td class="cell"><input type="text" onchange="productocuatro();" name="" id="codigo4"></td>
+                                                    <td class="cell"><input type="text" onchange="productocuatro();" name="codigo4" id="codigo4"></td>
                                                     <td class="cell">
                                                         <div id="nombre4">
                                                         
@@ -124,7 +111,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero8" onchange="sumar4();" type="number">
+                                                        <input  id="numero8" name="cant4" onchange="sumar4();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque4">
@@ -135,7 +122,7 @@
                                                 <!-- LINEA 5 -->
                                                 <tr>
                                                     <td>5</td>
-                                                    <td class="cell"><input type="text" onchange="productocinco();" name="" id="codigo5"></td>
+                                                    <td class="cell"><input type="text" onchange="productocinco();" name="codigo5" id="codigo5"></td>
                                                     <td class="cell">
                                                         <div id="nombre5">
                                                         
@@ -147,7 +134,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero10" onchange="sumar5();" type="number">
+                                                        <input  id="numero10" name="cant5" onchange="sumar5();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                        <div id="bloque5">
@@ -158,7 +145,7 @@
                                                 <!-- LINEA 6 -->
                                                 <tr>
                                                     <td>6</td>
-                                                    <td class="cell"><input type="text" onchange="productoseis();" name="" id="codigo6"></td>
+                                                    <td class="cell"><input type="text" onchange="productoseis();" name="codigo6" id="codigo6"></td>
                                                     <td class="cell">
                                                         <div id="nombre6">
                                                         
@@ -170,7 +157,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero12" onchange="sumar6();" type="number">
+                                                        <input  id="numero12" name="cant6" onchange="sumar6();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque6">
@@ -181,7 +168,7 @@
                                                 <!-- LINEA 7 -->
                                                 <tr>
                                                     <td>7</td>
-                                                    <td class="cell"><input type="text" onchange="productosiete();" name="" id="codigo7"></td>
+                                                    <td class="cell"><input type="text" onchange="productosiete();" name="codigo7" id="codigo7"></td>
                                                     <td class="cell">
                                                         <div id="nombre7">
                                                         
@@ -193,7 +180,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero14" onchange="sumar7();" type="number">
+                                                        <input  id="numero14" name="cant7" onchange="sumar7();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque7">
@@ -204,7 +191,7 @@
                                                 <!-- LINEA 8 -->
                                                 <tr>
                                                     <td>8</td>
-                                                    <td class="cell"><input type="text" onchange="productoocho();" name="" id="codigo8"></td>
+                                                    <td class="cell"><input type="text" onchange="productoocho();" name="codigo8" id="codigo8"></td>
                                                     <td class="cell">
                                                         <div id="nombre8">
                                                         
@@ -216,7 +203,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero16" onchange="sumar8();" type="number">
+                                                        <input  id="numero16" name="cant8" onchange="sumar8();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque8">
@@ -227,7 +214,7 @@
                                                 <!-- LINEA 9 -->
                                                 <tr>
                                                     <td>9</td>
-                                                    <td class="cell"><input type="text" onchange="productonueve();" name="" id="codigo9"></td>
+                                                    <td class="cell"><input type="text" onchange="productonueve();" name="codigo9" id="codigo9"></td>
                                                     <td class="cell">
                                                         <div id="nombre9">
                                                         
@@ -239,7 +226,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero18" onchange="sumar9();" type="number">
+                                                        <input  id="numero18" name="cant9" onchange="sumar9();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque9">
@@ -250,7 +237,7 @@
                                                 <!-- LINEA 10 -->
                                                 <tr>
                                                     <td>10</td>
-                                                    <td class="cell"><input type="text" onchange="productodiez();" name="" id="codigo10"></td>
+                                                    <td class="cell"><input type="text" onchange="productodiez();" name="codigo10" id="codigo10"></td>
                                                     <td class="cell">
                                                         <div id="nombre10">
                                                         
@@ -262,7 +249,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="cell">
-                                                        <input  id="numero20" onchange="sumar10();" type="number">
+                                                        <input  id="numero20" name="cant10" onchange="sumar10();" type="number">
                                                     </td>
                                                     <td class="cell" type="text">
                                                         <div id="bloque10">
@@ -280,11 +267,8 @@
                         <div class="row">
                             <div class="col-6 col-lg-6 text-center">
                                 <div class="row">
-                                    <div class="col-6 col-lg-6 ">
-                                        <button onclick="javascript:location.reload()" type="button" class="btn app-btn-primary" style="width:100%">Limpiar</button>
-                                    </div>
-                                    <div class="col-6 col-lg-6 ">
-                                        <button data-bs-toggle="modal" data-bs-target="#pagar" type="button" class="btn app-btn-primary" style="width:100%">Continuar</button>
+                                    <div class="col-12 col-lg-12">
+                                        <button onclick="javascript:location.reload()" type="button" class="btn app-btn-primary" style="width:100%">Limpiar todo</button>
                                     </div>
                                 </div>
                             </div>
@@ -307,16 +291,7 @@
                 </div>
     </div>
 </div>
-<div class="modal fade" id="pagar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modulo de pago</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form method="" enctype="multipart/form-data" oninput="resultado.value=parseInt(cambio.value)-parseInt(pagar.value)">
-            <div class="row">
+<div class="row" style="margin-top: 1rem;">
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                         <div class="app-card-header p-3 border-bottom-0">
@@ -413,7 +388,7 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="text-center">
                                             <label for="exampleInputEmail1" class="item-label"><strong>Total a pagar</strong></label>
-                                            <input style="font-size:1.5rem" type="number" id="pagar" value="70000" class="form-control" disabled>
+                                            <input style="font-size:1.5rem" type="number" id="pagar" value="0" class="form-control" disabled>
                                         </div>
                                     </div><!--//row-->
                                 </div>
@@ -439,7 +414,7 @@
                                         <button type="button" class="btn app-btn-primary" style="width:100%">Cotización</button>
                                     </div>
                                     <div class="col-6 col-lg-6 ">
-                                        <button data-bs-toggle="modal" data-bs-target="#pagar" type="button" class="btn app-btn-primary" style="width:100%">Pagar</button>
+                                        <button type="submit" class="btn app-btn-primary" style="width:100%">Pagar</button>
                                     </div>
                             </div>
 
@@ -447,11 +422,7 @@
                     </div>   
                 </div>
             </div>
-            </form>  
-        </div>
-    </div>
-</div>
-</div>
+</form>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'assets/sumas.js' %}"></script>

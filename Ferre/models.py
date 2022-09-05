@@ -106,9 +106,8 @@ class Ventas(models.Model):
     Valor = models.IntegerField(null=True)
     Cantidad = models.IntegerField(null=True)
     Cliente = models.CharField(max_length=100, null=True)
-    Vendedor = models.CharField(max_length=100, null=False)
+    Vendedor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     Domicilio = models.CharField(max_length=5, null=False, choices=DOC_CHOICES4)
-    Productos = models.ManyToManyField(Productos)
 
     def __str__(self):
         return "%s %s" % (self.IdVentas, self.Cantidad)
@@ -117,6 +116,21 @@ class Ventas(models.Model):
         verbose_name_plural = "Datos ventas"
         verbose_name = "Dato venta"
         ordering = ['Fecha']
+
+class RegistroVentas(models.Model):
+    IdRegistroVenta = models.AutoField(primary_key=True)
+    IdVenta = models.ForeignKey(Ventas, on_delete=models.CASCADE)
+    IdProducto = models.ForeignKey(Productos, on_delete=models.CASCADE)
+    Cantidad = models.CharField(max_length=100, null=True)
+    ValorUni = models.CharField(max_length=100, null=True)
+    ValorTotal = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return "%s %s" % (self.IdRegistroVenta, self.Cantidad)
+
+    class Meta:
+        verbose_name_plural = "Registro Ventas"
+        verbose_name = "Registro Venta"
 
 DOC_CHOICES5 = (
     ('Pendiente', _(u"Pendiente")),

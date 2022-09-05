@@ -438,6 +438,26 @@ class AgregarVenta(LoginRequiredMixin, View):
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
 
+    def post(self, request):
+        try:
+            #bloque1
+            codigo1 = request.POST.get("codigo")
+            cantidad1 = request.POST.get("cant1")
+            #bloque2
+            codigo2 = request.POST.get("codigo2")
+            cantidad2 = request.POST.get("cant2")
+            print(codigo1, cantidad1, codigo2, cantidad2)
+            if codigo1 and cantidad1 is not None:
+                messages.add_message(request, messages.INFO, 'Se lee la info')
+                return HttpResponseRedirect(reverse('usuarios:agregarventa'))
+
+            else:
+                messages.add_message(request, messages.INFO, 'Error 2')
+                return HttpResponseRedirect(reverse('usuarios:agregarventa'))
+
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
 class ListadoDomicilios(LoginRequiredMixin, View):
     login_url = '/'
     template_name = 'usuarios/listadodomicilios.html'

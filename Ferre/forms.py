@@ -149,12 +149,10 @@ class AddVenta(forms.ModelForm):
         fields = [
             'Cliente',
             'Domicilio',
-            'Productos',
         ]
         labels ={
             'Cliente': _(u'Cliente'),
-            'Domicilio': _(u'Domicilio'),
-            'Productos': _(u'Productos'),
+            'Domicilio': _(u'Domicilio')
         }
     def __init__(self, clientes=None, *args, **kwargs):
         super(AddVenta, self).__init__(*args, **kwargs)
