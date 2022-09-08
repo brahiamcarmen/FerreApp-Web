@@ -73,20 +73,20 @@
                                         <th class="cell">Cantidad</th>
                                         <th class="cell">Cliente</th>
                                         <th class="cell">Fecha de venta</th>
-                                        <th class="cell">Productos</th>
+                                        <th class="cell">Domicilio</th>
                                         <th class="cell">Ver</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for cliente in clientes %}
                                     <tr>
-                                        <td class="cell">{{cliente.Idcliente|intcomma}}</td>
-                                        <td class="cell">{{cliente.Valor}}</td>
+                                        <td class="cell">{{cliente.IdVentas|intcomma}}</td>
+                                        <td class="cell">{{cliente.Valor|intcomma}}</td>
                                         <td class="cell">{{cliente.Cantidad}}</td>
-                                        <td class="cell"><span>{{cliente.Cliente}}</span><span class="note">{{cliente.Fecha}}</span></td>
+                                        <td class="cell"><span>{{cliente.Cliente}}</span></td>
+                                        <td class="cell"><span class="note">{{cliente.Fecha}}</span></td>
                                         <td class="cell"><span class="badge bg-success">{{cliente.Domicilio}}</span></td>
-                                        <td class="cell"><span>{{cliente.Productos}}</span></td>
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="">Ver</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'usuarios:verventa' cliente.IdVentas %}">Ver</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

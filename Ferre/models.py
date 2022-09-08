@@ -141,6 +141,7 @@ class Domicilio(models.Model):
     IdVenta = models.ForeignKey(Ventas, on_delete=models.CASCADE)
     Estado = models.CharField(max_length=15, null=False, choices=DOC_CHOICES5)
     Direccion = models.CharField(max_length=60, null=False)
+    Contacto = models.CharField(max_length=60, null=False)
     FechaEntrega = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):

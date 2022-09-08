@@ -44,38 +44,35 @@
 </div><!--//row-->
 <!--//graficos-->
 <div class="row g-4 mb-4">
-    <div class="col-12 col-lg-12">
+    <div class="col-12 col-lg-8">
                         <div class="app-card app-card-stats-table h-100 shadow-sm">
                             <div class="app-card-header p-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <h4 class="app-card-title">Domicilios pendientes</h4>
                                     </div><!--//col-->
-                                    <div class="col-auto">
-                                        <div class="card-header-action">
-                                            <a href="#">View report</a>
-                                        </div><!--//card-header-actions-->
-                                    </div><!--//col-->
                                 </div><!--//row-->
                             </div><!--//app-card-header-->
-                            <div class="app-card-body p-1" style="height:50%; overflow: scroll;">
+                            <div class="app-card-body p-1">
                                 <div class="table-responsive">
-                                    <table class="table table-borderless mb-0">
+                                    <table class="table table-borderless mb-0 text-center">
                                         <thead>
                                             <tr>
                                                 <th class="meta">Id</th>
+                                                <th class="meta">No venta</th>
                                                 <th class="meta">Direccion</th>
                                                 <th class="meta">Estado</th>
                                                 <th class="meta stat-cell">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {% for domicilio in domicilios %}
+                                        {% for domicilio in domi %}
                                         <tr>
-                                            <td class="cell">{{producto.IdDomilicio}}</td>
-                                            <td class="cell">{{producto.Direccion}}</td>
-                                            <td class="cell">{{producto.Estado}}</td>
-                                            <td class="cell">Ver</td>
+                                            <td class="cell">{{domicilio.IdDomicilio}}</td>
+                                            <td class="cell">{{domicilio.IdVenta.pk}}</td>
+                                            <td class="cell">{{domicilio.Direccion}}</td>
+                                            <td class="cell">{{domicilio.Estado}}</td>
+                                            <td class="cell"><a style="width:100%" class="btn-sm app-btn-secondary" href="">Ver factura</a></td>
                                         </tr>
                                         {% endfor %}
                                         </tbody>

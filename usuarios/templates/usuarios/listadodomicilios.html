@@ -56,7 +56,7 @@
                                     {% for domicilio in domicilios %}
                                     <tr>
                                         <td class="cell">{{domicilio.IdDomicilio}}</td>
-                                        <td class="cell">{{domicilio.IdVENTA}}</td>
+                                        <td class="cell">{{domicilio.IdVenta.pk}}</td>
                                         <td class="cell">{{domicilio.Estado}}</td>
                                         <td class="cell">{{domicilio.Direccion}}</td>
                                         <td class="cell"><span>{{domicilio.FechaEntrega}}</span></td>

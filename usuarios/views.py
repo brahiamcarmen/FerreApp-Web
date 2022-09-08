@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
 from django.contrib import auth
-from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas, Domicilio
+from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas, Domicilio, RegistroVentas
 from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock, AddVenta
 
 class Inicio(LoginRequiredMixin, View):
@@ -36,7 +36,7 @@ class Inicio(LoginRequiredMixin, View):
                 cantstock += i.Stock
 
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp,'domicilios':domicilios, 'cantstock':cantstock,'stock': stock}
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'domi':domicilios, 'cantstock':cantstock,'stock': stock}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -440,14 +440,55 @@ class AgregarVenta(LoginRequiredMixin, View):
 
     def post(self, request):
         try:
+            usuario = Usuario.objects.get(usuid=request.user.pk)
+            #bloqueinfocliente
+            domicilio = request.POST.get("domicilio")
+            direccion = request.POST.get("direccion")
+            cedulacliente = request.POST.get("cedulacliente")
             #bloque1
             codigo1 = request.POST.get("codigo")
             cantidad1 = request.POST.get("cant1")
             #bloque2
             codigo2 = request.POST.get("codigo2")
             cantidad2 = request.POST.get("cant2")
-            print(codigo1, cantidad1, codigo2, cantidad2)
-            if codigo1 and cantidad1 is not None:
+            #bloque3
+            codigo3 = request.POST.get("codigo3")
+            cantidad3 = request.POST.get("cant3")
+            #bloque4
+            codigo4 = request.POST.get("codigo4")
+            cantidad4 = request.POST.get("cant4")
+            # bloque5
+            codigo5 = request.POST.get("codigo5")
+            cantidad5 = request.POST.get("cant5")
+
+            lista = [codigo1, codigo2, codigo3, codigo4, codigo5]
+
+            cont = 0
+            for i in lista:
+                if i != '':
+                    cont += 1
+
+            if cont == 1:
+                producto = Productos.objects.get(IdProducto=codigo1)
+                valorproducto = producto.PrecioVenta
+                valorxcant = int(cantidad1) * int(valorproducto)
+
+                venta = Ventas(Valor=valorxcant, Cantidad=cantidad1, Cliente=cedulacliente, Vendedor=usuario, Domicilio=domicilio)
+                venta.save()
+                registroventas = RegistroVentas(IdVenta=venta, IdProducto=producto,Cantidad=cantidad1, ValorUni=valorproducto, ValorTotal=valorxcant)
+                registroventas.save()
+                if domicilio == 'Si':
+                    adddomicilio = Domicilio(IdVenta=venta, Estado='Pendiente', Direccion=direccion)
+                    adddomicilio.save()
+
+                messages.add_message(request, messages.INFO, 'Se lee la info')
+                return HttpResponseRedirect(reverse('usuarios:agregarventa'))
+
+
+            elif cont ==2:
+                producto1 = Productos.objects.get(IdProducto=codigo1)
+                producto2 = Productos.objects.get(IdProducto=codigo2)
+                print(producto1,producto2)
                 messages.add_message(request, messages.INFO, 'Se lee la info')
                 return HttpResponseRedirect(reverse('usuarios:agregarventa'))
 
@@ -473,5 +514,37 @@ class ListadoDomicilios(LoginRequiredMixin, View):
             return render(request,
                           self.template_name,{'proyecto': proyectov,'version':versionp, 'domicilios': domicilios}
                             )
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class VerVenta(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/verventa.html'
+    form = AddVenta
+
+    def get(self, request, idventa):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+
+            venta = Ventas.objects.get(IdVentas=idventa)
+            noventa = venta.IdVentas
+            fecha = venta.Fecha
+            valor = venta.Valor
+            cantidad = venta.Cantidad
+            domicilio = venta.Domicilio
+            nombrev = venta.Vendedor.usuid.first_name
+            apellidov = venta.Vendedor.usuid.last_name
+            nombrevendedor = nombrev + ' ' + apellidov
+            idcliente = venta.Cliente
+            cliente = Clientes.objects.get(Idcliente=idcliente)
+            nombrecliente = cliente.Nombrecompleto
+            registroventas = RegistroVentas.objects.filter(IdVenta=idventa)
+            return render(request,self.template_name,{'proyecto': proyectov,'version':versionp,'domicilio': domicilio,'vendedor':nombrevendedor,
+                                                          'cantidad': cantidad, 'valor': valor, 'noventa': noventa, 'fecha': fecha,
+                                                      'registroventas': registroventas,'cedula': idcliente, 'nombrecliente': nombrecliente})
+
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")

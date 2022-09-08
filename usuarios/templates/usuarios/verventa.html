@@ -1,0 +1,194 @@
+{% extends 'usuarios/base.html' %}
+{% load static %}
+{% block styles %}
+{% endblock %}
+{%block title %} <title>VV</title> {%endblock%}
+{% load humanize %}
+{% block content %}
+{% include 'usuarios/alerts.html' %}                
+<h1 class="app-page-title">Informacion de la venta</h1>
+<div class="row gy-4">
+    <div class="col-12 col-lg-6">
+        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+            <div class="app-card-header p-3 border-bottom-0">
+                <div class="row align-items-center gx-3">
+                    <div class="col-auto">
+                        <div class="app-icon-holder">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            </svg>
+                        </div><!--//icon-holder-->
+                                        
+                    </div><!--//col-->
+                    <div class="col-auto">
+                        <h4 class="app-card-title">Informacion general de la venta</h4>
+                    </div><!--//col-->
+                </div><!--//row-->
+            </div><!--//app-card-header-->
+            <div class="app-card-body px-4 w-100">
+                    <div class="item py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>No de venta</strong></div>
+                                <div class="item-data">{{noventa}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Fecha</strong></div>
+                                <div class="item-data">{{fecha}}</div>
+                            </div>
+                        </div><!--//row-->
+                    </div><!--//item-->
+                    <div class="item py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Vendedor</strong></div>
+                                <div class="item-data">{{vendedor}}</div>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div><!--//item-->
+                    <div class="item py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Domicilio</strong></div>
+                                <div class="item-data">{{domicilio}}</div>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div><!--//item-->
+            </div><!--//app-card-body--> 
+        </div><!--//app-card-->
+    </div><!--//col-->
+    <div class="col-12 col-lg-6">
+        <div class="row">
+            <div class="col-6 col-lg-6">
+                <div class="app-card app-card-stat shadow-sm h-100">
+                    <div class="app-card-body p-3 p-lg-4">
+                        <h4 class="stats-type mb-1">Cantidad de productos</h4>
+                        <div class="stats-figure">{{cantidad}}</div>
+                    </div><!--//app-card-body-->
+                    <a class="app-card-link-mask" href="#"></a>
+                </div><!--//app-card-->
+            </div>
+            <div class="col-6 col-lg-6">
+                <div class="app-card app-card-stat shadow-sm h-100">
+                    <div class="app-card-body p-3 p-lg-4">
+                        <h4 class="stats-type mb-1">Valor de la venta</h4>
+                        <div class="stats-figure">${{valor|intcomma}}</div>
+                    </div><!--//app-card-body-->
+                    <a class="app-card-link-mask" href="#"></a>
+                </div><!--//app-card-->
+            </div>
+        </div>
+        <div class="row" style="margin-top: 1rem;">
+            <div class="col-12 col-lg-12">
+                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                    <div class="app-card-header p-3 border-bottom-0">
+                        <div class="row align-items-center gx-3">
+                            <div class="col-auto">
+                                <div class="app-icon-holder">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                    </svg>
+                                </div><!--//icon-holder-->
+                                                
+                            </div><!--//col-->
+                            <div class="col-auto">
+                                <h4 class="app-card-title">Informacion del cliente</h4>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div><!--//app-card-header-->
+                    <div class="app-card-body px-4 w-100">
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Numero de cedula</strong></div>
+                                        <div class="item-data">{{cedula}}</div>
+                                    </div><!--//col-->
+                                </div><!--//row-->
+                            </div>
+                            <div class="item border-bottom py-3">
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <div class="item-label"><strong>Nombre completo</strong></div>
+                                        <div class="item-data">{{nombrecliente}}</div>
+                                    </div><!--//col-->
+                                </div><!--//row-->
+                            </div><!--//item-->
+                    </div><!--//app-card-body-->
+                </div><!--//app-card-->
+            </div>
+        </div>
+</div>
+</div>
+<div class="row gy-2" style="margin-top: 0.5rem;">
+    <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+        <div class="app-card-header p-1 border-bottom-0">
+            <div class="row align-items-center gx-3">
+                <div class="col-auto">
+                    <div class="app-icon-holder">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                        </svg>
+                    </div>
+                </div><!--//col-->
+                <div class="col-auto">
+                    <h4 class="app-card-title">Listado de productos</h4>
+                </div><!--//col-->
+            </div><!--//row-->
+        </div><!--//app-card-header-->
+                            <div class="app-card-body px-1 w-100">                       
+                                <div class="tab-content" id="orders-table-tab-content">
+                                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                                            <div class="app-card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table app-table-hover mb-0 text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="cell">Id producto</th>
+                                                                <th class="cell">Nombre producto</th>
+                                                                <th class="cell">Cantidad</th>
+                                                                <th class="cell">Valor Uni</th>
+                                                                <th class="cell">Valor total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for registro in registroventas %}
+                                                            <tr>
+                                                                <td class="cell">{{registro.IdProducto.pk}}</td>
+                                                                <td class="cell">{{registro.IdProducto.NombreProducto}}</td>
+                                                                <td class="cell">{{registro.Cantidad}}</td>
+                                                                <td class="cell"><span>${{registro.ValorUni|intcomma}}</span></td>
+                                                                <td class="cell">${{registro.ValorTotal|intcomma}}</span></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--//app-card-body-->
+                            <div class="app-card-footer p-4 mt-auto">
+                              
+                            </div><!--//app-card-footer-->         
+            </div><!--//app-card-->
+        </div>
+<div class="row gy-2" style="margin-top: 0.5rem;">
+    <div class="col-6 col-lg-6">
+        <button style="width: 100%;" class="btn btn-success">Imprimir factura</button>
+    </div>
+    <div class="col-6 col-lg-6">
+        <button style="width: 100%;" class="btn btn-success">Descargar factura</button>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block scripts %}
+{% endblock %}
