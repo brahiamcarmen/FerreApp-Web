@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
-from Ferre.models import Clientes, Proveedor, Productos, Ventas
+from Ferre.models import Clientes, Proveedor, Productos, Ventas, Domicilio
 
 class AddClientes(forms.ModelForm):
     class Meta:
@@ -143,19 +143,37 @@ class AddStock(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
-class AddVenta(forms.ModelForm):
+class AddVcliente(forms.ModelForm):
     class Meta:
-        model = Ventas
+        model = Clientes
         fields = [
-            'Cliente',
-            'Domicilio',
+            'Idcliente',
         ]
         labels ={
-            'Cliente': _(u'Cliente'),
-            'Domicilio': _(u'Domicilio')
+            'IdCliente': _(u'Cedula cliente'),
         }
+        widgets = {
+            'IdCliente': forms.SelectDateWidget(),
+        }
+
     def __init__(self, clientes=None, *args, **kwargs):
-        super(AddVenta, self).__init__(*args, **kwargs)
+        super(AddVcliente, self).__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+class UpdateDomicilio(forms.ModelForm):
+    class Meta:
+        model = Domicilio
+        fields = [
+            'Estado',
+        ]
+        labels ={
+            'Estado': _(u'Modificar estado'),
+        }
+
+    def __init__(self, clientes=None, *args, **kwargs):
+        super(UpdateDomicilio, self).__init__(*args, **kwargs)
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})

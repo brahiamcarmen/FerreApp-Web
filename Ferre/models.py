@@ -105,7 +105,7 @@ class Ventas(models.Model):
     Fecha = models.DateTimeField(auto_now=True, null=False)
     Valor = models.IntegerField(null=True)
     Cantidad = models.IntegerField(null=True)
-    Cliente = models.CharField(max_length=100, null=True)
+    Cliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
     Vendedor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     Domicilio = models.CharField(max_length=5, null=False, choices=DOC_CHOICES4)
 

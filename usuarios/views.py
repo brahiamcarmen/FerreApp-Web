@@ -13,9 +13,10 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import speedtest
+from datetime import datetime
 from django.contrib import auth
 from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas, Domicilio, RegistroVentas
-from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock, AddVenta
+from Ferre.forms import AddClientes, AddProveedor, UpdateClientes, UpdateProveedor, AddProductos, AddStock, AddVcliente,UpdateDomicilio
 
 class Inicio(LoginRequiredMixin, View):
     login_url = '/'
@@ -30,13 +31,33 @@ class Inicio(LoginRequiredMixin, View):
             datos = Usuario.objects.get(usuid=request.user.pk)
             stock = Productos.objects.all()
             domicilios = Domicilio.objects.filter(Estado='Pendiente')
+            contdomi = Domicilio.objects.filter(Estado='Pendiente').count()
+            ventas = Ventas.objects.all().order_by('-IdVentas')[:10]
+            fechaexp = (datetime.today())
+            dia = fechaexp.day
+            ciclo = fechaexp.month
+            ano1 = fechaexp.year
+            # Los argumentos serán: Año, Mes, Día, Hora, Minutos, Segundos, Milisegundos.
+            new_date = datetime(ano1, ciclo, dia, 1, 00, 00, 00000)
+            new_date2 = datetime(ano1, ciclo, dia, 23, 59, 59, 00000)
+            cventas = Ventas.objects.filter(Fecha__gte=new_date, Fecha__lte=new_date2).all()
+
+            contar = 0
+            for i in cventas:
+                if i.pk >= 1:
+                    contar += 1
+
+            valorventas = 0
+            for i in cventas:
+                    valorventas += i.Valor
 
             cantstock = 0
             for i in stock:
                 cantstock += i.Stock
 
             return render(request,
-                          self.template_name,{'proyecto': proyectov,'version':versionp,'domi':domicilios, 'cantstock':cantstock,'stock': stock}
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'domi':domicilios, 'cantstock':cantstock,'stock': stock,
+                                              'ventas': ventas,'contar':contar, 'valorventas':valorventas,'contdomi':contdomi}
                             )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -410,7 +431,7 @@ class ListadoVentas(LoginRequiredMixin, View):
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
             datos = Usuario.objects.get(usuid=request.user.pk)
-            ventas = Ventas.objects.all()
+            ventas = Ventas.objects.all().order_by('-IdVentas')
             return render(request,
                           self.template_name,{'proyecto': proyectov,'version':versionp, 'clientes': ventas}
                             )
@@ -420,7 +441,7 @@ class ListadoVentas(LoginRequiredMixin, View):
 class AgregarVenta(LoginRequiredMixin, View):
     login_url = '/'
     template_name = 'usuarios/agregarventa.html'
-    form = AddVenta
+    form = AddVcliente
 
     def get(self, request):
         try:
@@ -428,12 +449,13 @@ class AgregarVenta(LoginRequiredMixin, View):
             proyectov = nombre.read()
             version = open('static/serial/Version.txt', 'r')
             versionp = version.read()
+            formulariocliente = self.form()
             if request.is_ajax():
                 datos = serializers.serialize("json", Productos.objects.all())
                 return HttpResponse(datos, content_type='application/json')
 
             else:
-                return render(request,self.template_name,{'proyecto': proyectov,'version':versionp})
+                return render(request,self.template_name,{'proyecto': proyectov,'version':versionp, 'form': formulariocliente})
 
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")
@@ -445,6 +467,7 @@ class AgregarVenta(LoginRequiredMixin, View):
             domicilio = request.POST.get("domicilio")
             direccion = request.POST.get("direccion")
             cedulacliente = request.POST.get("cedulacliente")
+            contacto = request.POST.get("contacto")
             #bloque1
             codigo1 = request.POST.get("codigo")
             cantidad1 = request.POST.get("cant1")
@@ -460,7 +483,7 @@ class AgregarVenta(LoginRequiredMixin, View):
             # bloque5
             codigo5 = request.POST.get("codigo5")
             cantidad5 = request.POST.get("cant5")
-
+            cliente = Clientes.objects.filter(Idcliente=cedulacliente).exists()
             lista = [codigo1, codigo2, codigo3, codigo4, codigo5]
 
             cont = 0
@@ -472,18 +495,17 @@ class AgregarVenta(LoginRequiredMixin, View):
                 producto = Productos.objects.get(IdProducto=codigo1)
                 valorproducto = producto.PrecioVenta
                 valorxcant = int(cantidad1) * int(valorproducto)
-
-                venta = Ventas(Valor=valorxcant, Cantidad=cantidad1, Cliente=cedulacliente, Vendedor=usuario, Domicilio=domicilio)
+                cedula = Clientes.objects.get(Idcliente=cedulacliente)
+                venta = Ventas(Valor=valorxcant, Cantidad=cantidad1, Cliente=cedula, Vendedor=usuario, Domicilio=domicilio)
                 venta.save()
                 registroventas = RegistroVentas(IdVenta=venta, IdProducto=producto,Cantidad=cantidad1, ValorUni=valorproducto, ValorTotal=valorxcant)
                 registroventas.save()
                 if domicilio == 'Si':
-                    adddomicilio = Domicilio(IdVenta=venta, Estado='Pendiente', Direccion=direccion)
+                    adddomicilio = Domicilio(IdVenta=venta, Estado='Pendiente', Direccion=direccion, Contacto=contacto)
                     adddomicilio.save()
 
                 messages.add_message(request, messages.INFO, 'Se lee la info')
                 return HttpResponseRedirect(reverse('usuarios:agregarventa'))
-
 
             elif cont ==2:
                 producto1 = Productos.objects.get(IdProducto=codigo1)
@@ -520,7 +542,6 @@ class ListadoDomicilios(LoginRequiredMixin, View):
 class VerVenta(LoginRequiredMixin, View):
     login_url = '/'
     template_name = 'usuarios/verventa.html'
-    form = AddVenta
 
     def get(self, request, idventa):
         try:
@@ -538,13 +559,38 @@ class VerVenta(LoginRequiredMixin, View):
             nombrev = venta.Vendedor.usuid.first_name
             apellidov = venta.Vendedor.usuid.last_name
             nombrevendedor = nombrev + ' ' + apellidov
-            idcliente = venta.Cliente
+            idcliente = venta.Cliente.pk
             cliente = Clientes.objects.get(Idcliente=idcliente)
             nombrecliente = cliente.Nombrecompleto
             registroventas = RegistroVentas.objects.filter(IdVenta=idventa)
+            otdomicilio = Domicilio.objects.filter(IdVenta=idventa)
             return render(request,self.template_name,{'proyecto': proyectov,'version':versionp,'domicilio': domicilio,'vendedor':nombrevendedor,
                                                           'cantidad': cantidad, 'valor': valor, 'noventa': noventa, 'fecha': fecha,
-                                                      'registroventas': registroventas,'cedula': idcliente, 'nombrecliente': nombrecliente})
+                                                      'registroventas': registroventas,'cedula': idcliente, 'nombrecliente': nombrecliente,'domicilios': otdomicilio})
 
+        except Usuario.DoesNotExist:
+            return render(request, "pages-404.html")
+
+class ActualizarDomicilio(LoginRequiredMixin, View):
+    login_url = '/'
+    template_name = 'usuarios/actualizardomi.html'
+    form = UpdateDomicilio
+
+    def get(self, request, identificador):
+        try:
+            nombre = open('static/serial/NombreProyecto.txt', 'r')
+            proyectov = nombre.read()
+            version = open('static/serial/Version.txt', 'r')
+            versionp = version.read()
+            iddomicilio = identificador
+            domicilio = Domicilio.objects.get(IdDomicilio=iddomicilio)
+            Direccion = domicilio.Direccion
+            datos = Usuario.objects.get(usuid=request.user.pk)
+
+            form = self.form(instance=domicilio)
+            return render(request,
+                          self.template_name,{'proyecto': proyectov,'version':versionp,'formulario':form,
+                                              'identificador': iddomicilio, 'direccion': Direccion}
+                            )
         except Usuario.DoesNotExist:
             return render(request, "pages-404.html")

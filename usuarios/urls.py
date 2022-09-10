@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from usuarios.views import Inicio, ListaClientes, AgregarClientes,ListadoVentas,ListaProveedores, ModificarClientes,Agregarproveedor
 from usuarios.views import VerCliente, VerProveedor,VerVenta, ModificarProveedor,ListadoDomicilios, ListaProductos, AgregarProducto,AgregarStock, AgregarVenta
+from usuarios.views import ActualizarDomicilio
 
 urlpatterns = [
     url(r'^inicio/', Inicio.as_view(), name='inicio'),
@@ -19,5 +20,6 @@ urlpatterns = [
     url(r'listadoventas/', ListadoVentas.as_view(), name='listadoventas'),
     url(r'listadodomicilios/', ListadoDomicilios.as_view(), name='listadodomicilios'),
     url(r'verventa/(?P<idventa>\w+)', VerVenta.as_view(), name='verventa'),
+    url(r'actualizardomi/(?P<identificador>\w+)', ActualizarDomicilio.as_view(), name='actualizardomi'),
 
 ]
