@@ -37,7 +37,7 @@ class Clientes(models.Model):
     Tipocliente = models.CharField(max_length= 50, null=False, choices=DOC_CHOICES)
     CedulaRepresentante = models.CharField(max_length=50, null=True)
     NombreRepresentante = models.CharField(max_length=50, null=True)
-    telefonoRepresentante = models.IntegerField(null=True)
+    telefonoRepresentante = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return "%s %s" % (self.Idcliente, self.Nombrecompleto)
