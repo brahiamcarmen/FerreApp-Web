@@ -108,11 +108,5 @@ function sumar10(){
     }
 }
 
-function sumartodo(){
-    var resultado = document.getElementById('resultado');
-    var resultado3 = document.getElementById('resultado3');
-    let grupo = [resultado,resultado3]
-    console.log(grupo)
 
-}
 
