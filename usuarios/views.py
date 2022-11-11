@@ -12,7 +12,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-import speedtest
 from datetime import datetime
 from django.contrib import auth
 from Ferre.models import Usuario, Clientes, Proveedor, Productos, Ventas, Domicilio, RegistroVentas
